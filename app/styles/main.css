@@ -34,3 +34,16 @@ body {
     font-size: 12px;
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
+
+#contributors {
+    display: table-cell;
+    vertical-align: middle;
+    padding-right: 15px;
+}
+
+#contributors img {
+    float: right;
+    margin: 3px;
+    border-radius: 4px;
+    box-shadow: 0 1px 0 #449d44;
+}
