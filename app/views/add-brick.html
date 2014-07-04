@@ -1,0 +1,20 @@
+<div>
+    <ul class="nav nav-tabs nav-justified addBrickTabs" role="tablist">
+        <li class="active" ng-click="setAddBrickType('comment')"><a>Comment</a></li>
+        <li ng-click="setAddBrickType('code')"><a>Code</a></li>
+        <li ng-click="setAddBrickType('meeting')"><a>Meeting</a></li>
+    </ul>
+    <div class="brickAddBox" ng-show="type === 'comment'">
+        <br/>
+        <textarea class="commentBox form-control" rows="3" ng-model="content"></textarea>
+        <button class="commentBtn btn btn-default" ng-click="addBrick({type: 'comment', content: content})">
+            <span class="glyphicon glyphicon-comment"></span>
+        </button>
+    </div>
+    <div class="brickAddBox" ng-show="type === 'code'">
+        Code
+    </div>
+    <div class="brickAddBox" ng-show="type === 'meeting'">
+        Meeting
+    </div>
+</div>
