@@ -1,4 +1,9 @@
 <div class="brick">
-    I'm a {{brick.type}} brick
     <span class="timestamp" am-time-ago="brick.time"></span>
+    <div><strong>{{brick.content.author}}</strong> pushed {{brick.content.commits.length}} commits:</div>
+    <div ng-repeat="commit in brick.content.commits">
+        <span class="glyphicon glyphicon-log-in commitIcon"> </span>
+        <span class="commitMessage">{{commit.message}}</span>
+        <span class="commitId">({{commit.id}})</span>
+    </div>
 </div>

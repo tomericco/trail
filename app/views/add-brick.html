@@ -12,9 +12,31 @@
         </button>
     </div>
     <div class="brickAddBox" ng-show="type === 'code'">
-        Code
+        <br/>
+        <textarea class="commentBox form-control" rows="3" ng-model="content"></textarea>
+        <button class="commentBtn btn btn-default" ng-click="addBrick({type: 'code', content: content})">
+            <span class="glyphicon glyphicon-comment"></span>
+        </button>
     </div>
     <div class="brickAddBox" ng-show="type === 'meeting'">
-        Meeting
+        <button class="commentBtn btn btn-default" ng-click="addBrick({
+        type: 'meeting',
+        content: {
+            time: '12:00',
+            location: 'Hawaii meeting room',
+            purpose: 'sync',
+            participants:
+                [
+                    {
+                        avatar: 'https://avatars2.githubusercontent.com/u/1524181?s=40'
+                    },
+                    {
+                        avatar: 'https://avatars2.githubusercontent.com/u/1524182?s=40'
+                    }
+                ]
+            }
+        })">
+            <span class="glyphicon glyphicon-comment"></span>
+        </button>
     </div>
 </div>

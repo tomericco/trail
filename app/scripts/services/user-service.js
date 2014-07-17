@@ -16,12 +16,12 @@ angular.module('trailApp')
       {
         id: '333',
         username: 'lamlam',
-        avatar: 'https://avatars2.githubusercontent.com/u/1524181?s=40'
+        avatar: 'https://avatars2.githubusercontent.com/u/1524182?s=40'
       },
       {
         id: '444',
         username: 'foofoo',
-        avatar: 'https://avatars0.githubusercontent.com/u/352053?s=40'
+        avatar: 'https://avatars0.githubusercontent.com/u/352113?s=40'
       }
     ];
 

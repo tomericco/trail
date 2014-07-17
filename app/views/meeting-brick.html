@@ -1,4 +1,7 @@
 <div class="brick">
-    I'm a {{brick.type}} brick
     <span class="timestamp" am-time-ago="brick.time"></span>
+    Meeting at <strong>{{brick.content.time}}</strong> in <strong>{{brick.content.location}}</strong> for <strong>{{brick.content.purpose}}</strong> with
+    <span ng-repeat="participant in brick.content.participants">
+        <img class="avatar" ng-src="{{participant.avatar}}" alt=""/>
+    </span>
 </div>
