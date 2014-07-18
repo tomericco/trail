@@ -10,6 +10,7 @@ body {
     width: 100%;
     height: 50px;
     display: table;
+    z-index: 99999;
 
     -webkit-box-shadow: 0 1px 5px rgba(0,0,0,0.3);
     -moz-box-shadow: 0 1px 5px rgba(0,0,0,0.3);
@@ -23,14 +24,61 @@ body {
     color: #FAFAFA;
 }
 
-.editBrick, .brick {
+.brick {
+    display: table;
+    position: relative;
+    padding: 5px 0 5px 0;
+}
+
+.brickContent {
+    position: relative;
+    padding-left: 10px;
+}
+
+.editBrick, .brickContent {
     border: 1px solid #bbbbbb;
     background-color: #eeeeee;
     padding: 10px;
+    border-radius: 4px;
+    display: table-cell;
+    vertical-align: middle;
+    width: 100%;
 }
 
-.brick:hover {
+.brickContent:hover {
     background-color: #FFFFFF;
+}
+
+/* Brick left arrow */
+.brickContent:after, .brickContent:before {
+    right: 100%;
+    top: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+}
+
+.brickContent:hover:after {
+    border-right-color: #fff;
+}
+
+.brickContent:hover:before {
+
+}
+
+.brickContent:after {
+    border-color: rgba(255, 255, 255, 0);
+    border-right-color: #eeeeee;
+    border-width: 10px;
+    margin-top: -10px;
+}
+.brickContent:before {
+    border-color: rgba(0, 0, 0, 0);
+    border-right-color: #bbbbbb;
+    border-width: 11px;
+    margin-top: -11px;
 }
 
 .timestamp {
@@ -116,4 +164,13 @@ body {
     opacity: .6;
     margin: 3px;
     width: 20px;
+}
+
+.brickUserIcon {
+    padding-right: 15px;
+}
+
+.brick .brickUserIcon {
+    display: table-cell;
+    vertical-align: middle;
 }

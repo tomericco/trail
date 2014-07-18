@@ -1,7 +1,10 @@
 <div class="brick">
-    <span class="timestamp" am-time-ago="brick.time"></span>
-    Meeting at <strong>{{brick.content.time}}</strong> in <strong>{{brick.content.location}}</strong> for <strong>{{brick.content.purpose}}</strong> with
-    <span ng-repeat="participant in brick.content.participants">
-        <img class="avatar" ng-src="{{participant.avatar}}" alt=""/>
-    </span>
+    <user-icon user-id="2"></user-icon>
+    <div class="brickContent">
+        <span class="timestamp" am-time-ago="brick.time"></span>
+        Meeting at <strong>{{brick.content.time}}</strong> in <strong>{{brick.content.location}}</strong> for <strong>{{brick.content.purpose}}</strong> with
+        <span ng-repeat="participant in brick.content.participants">
+            <img class="avatar" ng-src="{{participant.avatar}}" alt=""/>
+        </span>
+    </div>
 </div>

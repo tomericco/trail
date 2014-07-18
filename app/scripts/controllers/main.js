@@ -4,11 +4,13 @@ angular.module('trailApp')
   .controller('MainCtrl', ['$scope', 'UserService', function ($scope, UserService) {
     $scope.bricks = [{
             type: 'comment',
+            author: '1',
             content: 'Hi guys! Let\'s start rockin\'!',
             time: new Date() - 100000 * 34
         },
         {
             type: 'meeting',
+            author: '2',
             content: {
                 time: '10:00',
                 location: "Adam's office",
@@ -23,6 +25,7 @@ angular.module('trailApp')
         },
         {
             type: 'code',
+            author: '3',
             content: {
                 author: 'tomericco',
                 commits: [
@@ -47,6 +50,7 @@ angular.module('trailApp')
         },
         {
             type: 'comment',
+            author: '1',
             content: 'Tomer, I have added a few comments on your commits. Please review.',
             time: new Date() - 100000 * 20
         }

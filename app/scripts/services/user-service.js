@@ -4,23 +4,23 @@ angular.module('trailApp')
 .factory('UserService', function () {
     var dummyContributors = [
       {
-        id: '111',
-        username: 'tomericco',
+        id: '1',
+        username: 'joey',
         avatar: 'https://avatars2.githubusercontent.com/u/1524181?s=40'
       },
       {
-        id: '222',
-        username: 'shuki',
+        id: '2',
+        username: 'ross',
         avatar: 'https://avatars0.githubusercontent.com/u/7373209?s=40'
       },
       {
-        id: '333',
-        username: 'lamlam',
+        id: '3',
+        username: 'monica',
         avatar: 'https://avatars2.githubusercontent.com/u/1524182?s=40'
       },
       {
-        id: '444',
-        username: 'foofoo',
+        id: '4',
+        username: 'rachel',
         avatar: 'https://avatars0.githubusercontent.com/u/352113?s=40'
       }
     ];
@@ -38,6 +38,10 @@ angular.module('trailApp')
 
     self.addContributor = function (userId, featureId) {
       // TODO SERVER
+    };
+
+    self.getUserById = function (userId) {
+      return _.find(dummyContributors, { id: userId });
     };
 
     return self;
