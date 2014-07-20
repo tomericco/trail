@@ -17,7 +17,11 @@
 </div>
 
 <div class="container">
-    <div id="timeline"></div>
+    <div id="timeline">
+        <div class="timeLeft">
+            <span class="timestamp">{{dueDate}}</span> left for finishing this task!
+        </div>
+    </div>
 
     <div ng-repeat="brick in bricks" ng-switch on="brick.type">
         <div code-brick ng-switch-when="code"></div>
