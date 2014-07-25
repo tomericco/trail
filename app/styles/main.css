@@ -71,7 +71,7 @@ body {
 /* Brick left arrow */
 .brickContent:after, .brickContent:before {
     right: 100%;
-    top: 50%;
+    top: 20px;
     border: solid transparent;
     content: " ";
     height: 0;
@@ -176,10 +176,10 @@ body {
 }
 
 .brickUserIcon {
-    padding-right: 15px;
+    padding-right: 10px;
 }
 
 .brick .brickUserIcon {
     display: table-cell;
-    vertical-align: middle;
+    /*vertical-align: middle;*/
 }
