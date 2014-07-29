@@ -55,6 +55,12 @@ angular.module('trailApp')
             author: '1',
             content: 'Tomer, I have added a few comments on your commits. Please review.',
             time: new Date() - 100000 * 20
+          },
+          {
+              type: 'req',
+              author: '3',
+              content: 'Add a popover on hover to user avatars',
+              time: new Date() - 100000 * 18
           }
         ],
         contributors: [
