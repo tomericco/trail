@@ -16,6 +16,10 @@ angular.module('trailApp')
             parent.addClass('active');
           }
         });
+
+        $('.meetingTimePicker').clockpicker({
+            autoclose: true
+        });
       }
     };
   });

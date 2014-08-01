@@ -145,6 +145,7 @@ body {
 .brickAddBox {
     height: 200px;
     max-height: 200px;
+    padding: 10px 5px 10px 5px;
 }
 
 .commentBox {
@@ -186,4 +187,20 @@ body {
 
 .reqLabel {
     vertical-align: middle;
+}
+
+.meetingTimePicker {
+    width: 100px;
+}
+
+/* Workaround for fixing TimePicker inline display issue */
+.input-group {
+    display: inline-table;
+    vertical-align: middle;
+
+    .input-group-addon,
+    .input-group-btn,
+    .form-control {
+        width: auto !important;
+    }
 }
