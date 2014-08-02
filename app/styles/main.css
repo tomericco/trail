@@ -204,3 +204,11 @@ body {
         width: auto !important;
     }
 }
+
+.meetingParticipant {
+    cursor: pointer;
+}
+
+.markedOut {
+    opacity: .6;
+}

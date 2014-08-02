@@ -20,43 +20,27 @@
     </div>
     <div class="brickAddBox" ng-show="type === 'meeting'">
         <span>Schdule a meeting </span>
-        <select name="day" id="day">
+        <select name="day" id="meetingDayInput">
             <option value="today">Today</option>
             <option value="tomorrow">Tomorrow</option>
         </select>
         <span>at </span>
 
         <span class="input-group meetingTimePicker">
-            <input type="text" class="form-control" value="09:42">
+            <input id="meetingTimeInput" type="text" class="form-control" value="09:42">
             <span class="input-group-addon">
                 <span class="glyphicon glyphicon-time"></span>
             </span>
         </span>
 
         <span> with </span>
-        <span ng-repeat="contributor in contributors">
-            <img class="avatar" ng-src="{{contributor.avatar}}" alt=""/>
+        <span ng-repeat="contributor in contributors" ng-init="setMeetingParticipants(contributor)" ng-click="toggleMeetingParticipant($event, contributor)">
+            <img class="avatar meetingParticipant" ng-src="{{contributor.avatar}}" alt="" />
         </span>
 
         <br/>
 
-        <button class="commentBtn btn btn-default" ng-click="addBrick({
-        type: 'meeting',
-        content: {
-            time: '12:00',
-            location: 'Hawaii meeting room',
-            purpose: 'sync',
-            participants:
-                [
-                    {
-                        avatar: 'https://avatars2.githubusercontent.com/u/1524181?s=40'
-                    },
-                    {
-                        avatar: 'https://avatars2.githubusercontent.com/u/1524182?s=40'
-                    }
-                ]
-            }
-        })">
+        <button class="commentBtn btn btn-default" ng-click="addMeetingBrick()">
             <span class="glyphicon glyphicon-comment"></span>
         </button>
     </div>
