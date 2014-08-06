@@ -19,26 +19,30 @@
         </button>
     </div>
     <div class="brickAddBox" ng-show="type === 'meeting'">
-        <span>Schdule a meeting </span>
-        <select name="day" id="meetingDayInput">
-            <option value="today">Today</option>
-            <option value="tomorrow">Tomorrow</option>
-        </select>
-        <span>at </span>
+        <div class="col-xs-6 col-md-4 meetingBox" id="meetingLocationBox">
+            <div class="meetingIcon">
+                <span class="glyphicon glyphicon-map-marker"></span>
+            </div>
+            <input id="meetingLocationInput" type="text" class="form-control centerContainer">
+        </div>
 
-        <span class="input-group meetingTimePicker">
-            <input id="meetingTimeInput" type="text" class="form-control" value="09:42">
-            <span class="input-group-addon">
+        <div class="col-xs-6 col-md-4 meetingBox leftVerticalDevider" id="meetingTimeBox">
+            <div class="meetingIcon">
                 <span class="glyphicon glyphicon-time"></span>
-            </span>
-        </span>
+            </div>
+            <input id="meetingTimeInput" type="text" class="form-control meetingTimePicker centerContainer" value="09:42">
+        </div>
 
-        <span> with </span>
-        <span ng-repeat="contributor in contributors" ng-init="setMeetingParticipants(contributor)" ng-click="toggleMeetingParticipant($event, contributor)">
-            <img class="avatar meetingParticipant" ng-src="{{contributor.avatar}}" alt="" />
-        </span>
-
-        <br/>
+        <div class="col-xs-6 col-md-4 meetingBox leftVerticalDevider" id="meetingParticipantsBox">
+            <div class="meetingIcon">
+                <span class="glyphicon glyphicon-user"></span>
+            </div>
+            <div class="centerContainer">
+                <span ng-repeat="contributor in contributors" ng-init="setMeetingParticipants(contributor)" ng-click="toggleMeetingParticipant($event, contributor)">
+                    <img class="avatar meetingParticipant" ng-src="{{contributor.avatar}}" alt="" />
+                </span>
+            </div>
+        </div>
 
         <button class="commentBtn btn btn-default" ng-click="addMeetingBrick()">
             <span class="glyphicon glyphicon-comment"></span>

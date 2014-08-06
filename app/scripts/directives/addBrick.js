@@ -32,7 +32,6 @@ angular.module('trailApp')
         };
 
         scope.addMeetingBrick = function () {
-          debugger;
           var goingParticipants = _.filter(this.participants, function (participant) {
             return !participant.attending;
           });
@@ -41,7 +40,7 @@ angular.module('trailApp')
             content: {
               day: $(el).find('#meetingDayInput').val(),
               time: $(el).find('#meetingTimeInput').val(),
-              location: 'Hawaii meeting room',
+              location: $(el).find('#meetingLocationInput').val(),
               purpose: 'sync',
               participants: goingParticipants
             }
