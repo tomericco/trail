@@ -4,16 +4,18 @@
         <li ng-click="setAddBrickType('req')"><a>Requirement</a></li>
         <li ng-click="setAddBrickType('meeting')"><a>Meeting</a></li>
     </ul>
-    <div class="brickAddBox" ng-show="type === 'comment'">
-        <br/>
-        <textarea class="commentBox form-control" rows="3" ng-model="content"></textarea>
+    <div ng-show="type === 'comment'">
+        <div class="brickAddBox">
+            <textarea class="commentBox" ng-model="content"></textarea>
+        </div>
         <button class="commentBtn btn btn-default" ng-click="addBrick({type: 'comment', content: content})">
             <span class="glyphicon glyphicon-comment"></span>
         </button>
     </div>
-    <div class="brickAddBox" ng-show="type === 'req'">
-        <br/>
-        <textarea class="commentBox form-control" rows="3" ng-model="content"></textarea>
+    <div ng-show="type === 'req'">
+        <div class="brickAddBox">
+            <textarea class="commentBox" ng-model="content"></textarea>
+        </div>
         <button class="commentBtn btn btn-default" ng-click="addBrick({type: 'req', content: content})">
             <span class="glyphicon glyphicon-comment"></span>
         </button>
@@ -44,8 +46,8 @@
             </div>
         </div>
 
-        <button class="commentBtn btn btn-default" ng-click="addMeetingBrick()">
-            <span class="glyphicon glyphicon-comment"></span>
+        <button type="button" class="commentBtn btn btn-primary" ng-click="addMeetingBrick()">
+            <span>Schedule</span>
         </button>
     </div>
 </div>

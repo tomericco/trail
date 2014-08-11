@@ -49,6 +49,10 @@ angular.module('trailApp')
           this.addBrick(brickObj);
         };
 
+        scope.resetTextArea = function () {
+          $(el).find('textarea').val('');
+        };
+
         scope.setMeetingParticipants = function (contributor) {
           this.participants.push(contributor);
         };
