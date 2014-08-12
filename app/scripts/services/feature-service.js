@@ -18,9 +18,16 @@ angular.module('trailApp')
               location: "Adam's office",
               purpose: "Feature kickoff",
               participants: [
-                {id: 'tomer', avatar: 'https://avatars0.githubusercontent.com/u/352023?s=40'},
-                {id: 'natalie', avatar: 'https://avatars0.githubusercontent.com/u/31323?s=40'},
-                {id: 'mika', avatar: 'https://avatars0.githubusercontent.com/u/3520?s=40'}
+                {
+                  id: '1',
+                  username: 'joey',
+                  avatar: 'https://avatars2.githubusercontent.com/u/1524181?s=40'
+                },
+                {
+                  id: '2',
+                  username: 'ross',
+                  avatar: 'https://avatars0.githubusercontent.com/u/7373209?s=40'
+                }
               ]
             },
             time: new Date() - 100000 * 28
@@ -59,7 +66,14 @@ angular.module('trailApp')
           {
               type: 'req',
               author: '3',
-              content: 'Add a popover on hover to user avatars',
+              content: {
+                reqText: 'Add a popover on hover to user avatars',
+                assignee: {
+                  id: '1',
+                  username: 'joey',
+                  avatar: 'https://avatars2.githubusercontent.com/u/1524181?s=40'
+                }
+              },
               time: new Date() - 100000 * 18
           }
         ],

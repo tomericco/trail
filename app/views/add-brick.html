@@ -1,4 +1,4 @@
-<div>
+<div ng-controller="AddBrickCtrl">
     <ul class="nav nav-tabs nav-justified addBrickTabs" role="tablist">
         <li class="active" ng-click="setAddBrickType('comment')"><a>Comment</a></li>
         <li ng-click="setAddBrickType('req')"><a>Requirement</a></li>
@@ -6,17 +6,22 @@
     </ul>
     <div ng-show="type === 'comment'">
         <div class="brickAddBox">
-            <textarea class="commentBox" ng-model="content"></textarea>
+            <textarea placeholder="Say something about the progress..." class="commentBox" ng-model="commentContent"></textarea>
         </div>
-        <button class="commentBtn btn btn-default" ng-click="addBrick({type: 'comment', content: content})">
+        <button class="commentBtn btn btn-default" ng-click="addCommentBrick(commentContent)">
             <span class="glyphicon glyphicon-comment"></span>
         </button>
     </div>
     <div ng-show="type === 'req'">
         <div class="brickAddBox">
-            <textarea class="commentBox" ng-model="content"></textarea>
+            <textarea placeholder="What to do next?" class="reqBox" ng-model="reqContent"></textarea>
+            <div class="assigneeBox">
+                <span class="markedOut" ng-repeat="contributor in contributors" ng-click="setAsAssignee($event, contributor)">
+                    <img class="avatar meetingParticipant" ng-src="{{contributor.avatar}}" alt="" />
+                </span>
+            </div>
         </div>
-        <button class="commentBtn btn btn-default" ng-click="addBrick({type: 'req', content: content})">
+        <button class="commentBtn btn btn-default" ng-click="addReqBrick(reqContent)">
             <span class="glyphicon glyphicon-comment"></span>
         </button>
     </div>
@@ -25,14 +30,14 @@
             <div class="meetingIcon">
                 <span class="glyphicon glyphicon-map-marker"></span>
             </div>
-            <input id="meetingLocationInput" type="text" class="form-control centerContainer">
+            <input id="meetingLocationInput" ng-model="meetingLocation" type="text" class="form-control centerContainer">
         </div>
 
         <div class="col-xs-6 col-md-4 meetingBox leftVerticalDevider" id="meetingTimeBox">
             <div class="meetingIcon">
                 <span class="glyphicon glyphicon-time"></span>
             </div>
-            <input id="meetingTimeInput" type="text" class="form-control meetingTimePicker centerContainer" value="09:42">
+            <input id="meetingTimeInput" ng-model="meetingTime" type="text" class="form-control meetingTimePicker centerContainer" value="09:42">
         </div>
 
         <div class="col-xs-6 col-md-4 meetingBox leftVerticalDevider" id="meetingParticipantsBox">
@@ -46,8 +51,8 @@
             </div>
         </div>
 
-        <button type="button" class="commentBtn btn btn-primary" ng-click="addMeetingBrick()">
-            <span>Schedule</span>
+        <button type="button" class="commentBtn btn btn-default" ng-click="addMeetingBrick()">
+            <span class="glyphicon glyphicon-send"></span>
         </button>
     </div>
 </div>

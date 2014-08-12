@@ -21,8 +21,6 @@ angular.module('trailApp')
           autoclose: true
         });
 
-        scope.participants = [];
-
         scope.toggleMeetingParticipant = function (event, participant) {
           var el = $(event.target);
           el.toggleClass('markedOut');
@@ -31,30 +29,12 @@ angular.module('trailApp')
           participant.attending = true;
         };
 
-        scope.addMeetingBrick = function () {
-          var goingParticipants = _.filter(this.participants, function (participant) {
-            return !participant.attending;
-          });
-          var brickObj = {
-            type: 'meeting',
-            content: {
-              day: $(el).find('#meetingDayInput').val(),
-              time: $(el).find('#meetingTimeInput').val(),
-              location: $(el).find('#meetingLocationInput').val(),
-              purpose: 'sync',
-              participants: goingParticipants
-            }
-          };
+        scope.setAsAssignee = function (event, participant) {
+          var el = $(event.target).parent();
+          el.removeClass('markedOut');
+          el.siblings().addClass('markedOut');
 
-          this.addBrick(brickObj);
-        };
-
-        scope.resetTextArea = function () {
-          $(el).find('textarea').val('');
-        };
-
-        scope.setMeetingParticipants = function (contributor) {
-          this.participants.push(contributor);
+          scope.reqAssignee = participant;
         };
       }
     };
