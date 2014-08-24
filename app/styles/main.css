@@ -115,23 +115,19 @@ body {
 }
 
 .backBtn {
-    text-decoration: none;
-    -webkit-font-smoothing: antialiased;
-    display: table-cell;
-    width: 50px;
-    height: 100%;
-    line-height: 1;
-    vertical-align: middle;
-    font-size: 26px;
-    font-weight: bold;
-    cursor: pointer;
     color: #ccc;
     text-align: center;
+    padding-right: 5px;
+    vertical-align: middle;
 }
 
 .backBtn:hover {
     color: #eee;
-    background-color: #4cac4c;
+    text-decoration: none;
+}
+
+.trailTitle {
+    vertical-align: middle;
 }
 
 .addBrickTabs {
