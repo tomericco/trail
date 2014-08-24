@@ -1,17 +1,17 @@
 'use strict';
 
-describe('Controller: MainCtrl', function () {
+describe('Controller: TrailCtrl', function () {
 
   // load the controller's module
   beforeEach(module('trailApp'));
 
-  var MainCtrl,
+  var TrailCtrl,
     scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    MainCtrl = $controller('MainCtrl', {
+    TrailCtrl = $controller('TrailCtrl', {
       $scope: scope
     });
   }));
