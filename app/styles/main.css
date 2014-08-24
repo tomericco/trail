@@ -185,7 +185,21 @@ body {
 }
 
 .container {
-    max-width: 800px;
+    max-width: 900px;
+    display: table;
+}
+
+.feed {
+    width: 100%; /*width: 770px; preparation for right panel*/
+    float: left;
+}
+
+.rightPanel {
+    margin-top:80px;
+    width: 100px;
+    height: 500px;
+    float: right;
+    background-color: darkgray;
 }
 
 .avatar {

@@ -17,23 +17,26 @@
 </div>
 
 <div class="container">
-    <div id="timeline">
-        <div class="timeLeft">
-            <span class="timestamp">{{dueDate}}</span> left for finishing this task!
+    <div class="feed">
+        <div id="timeline">
+            <div class="timeLeft">
+                <span class="timestamp">{{dueDate}}</span> left for finishing this task!
+            </div>
         </div>
+
+        <div ng-repeat="brick in bricks" ng-switch on="brick.type">
+            <div code-brick ng-switch-when="code"></div>
+            <div comment-brick ng-switch-when="comment"></div>
+            <div meeting-brick ng-switch-when="meeting"></div>
+            <div req-brick ng-switch-when="req"></div>
+            <div brick ng-switch-default></div>
+        </div>
+
+        <hr>
+
+        <div add-brick></div>
     </div>
-
-    <div ng-repeat="brick in bricks" ng-switch on="brick.type">
-        <div code-brick ng-switch-when="code"></div>
-        <div comment-brick ng-switch-when="comment"></div>
-        <div meeting-brick ng-switch-when="meeting"></div>
-        <div req-brick ng-switch-when="req"></div>
-        <div brick ng-switch-default></div>
-    </div>
-
-    <hr>
-
-    <div add-brick></div>
+    <!--<div class="rightPanel"></div>-->
 </div>
 
 <div class="footer">
