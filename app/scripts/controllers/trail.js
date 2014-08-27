@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('trailApp')
-  .controller('TrailCtrl', ['$scope', 'FeatureService', 'UtilsService', function ($scope, FeatureService, UtilsService) {
+  .controller('TrailCtrl', ['$scope', '$stateParams', 'TrailService', 'UtilsService', function ($scope, $stateParams, TrailService, UtilsService) {
     $scope.dueDate = '10 days';
     $scope.types = ['code', 'comment', 'meeting'];
     $scope.type = 'comment';
@@ -18,13 +18,12 @@ angular.module('trailApp')
       $scope.type = type;
     };
 
-    $scope.loadFeature = function (featureId) {
-      FeatureService.getFeatureById(featureId, function (feature) {
-        $scope.bricks = feature.bricks;
-        $scope.contributors = feature.contributors;
-        $scope.dueDate = UtilsService.getTimeLeftAsString(feature.dueDate);
-      });
-    };
+    var trail = $scope.$parent.trails[$stateParams.trailId];
 
-    $scope.loadFeature('1');
+    if (trail) {
+      $scope.bricks = trail.bricks;
+      $scope.contributors = trail.contributors;
+      $scope.dueDate = UtilsService.getTimeLeftAsString(trail.dueDate);
+      $scope.name = trail.name;
+    }
   }]);

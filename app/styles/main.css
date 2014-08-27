@@ -279,3 +279,8 @@ body {
 .footer {
     height: 100px;
 }
+
+.loggedInUserBox {
+    float: right;
+    padding-right: 5px;
+}

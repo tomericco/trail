@@ -1,9 +1,10 @@
 'use strict';
 
 angular.module('trailApp')
-  .factory('FeatureService', function () {
-    var dummyFeatures = {
+  .factory('TrailService', function () {
+    var dummyTrail = {
         '1': {
+          name: 'Sample feature',
           bricks: [{
             type: 'comment',
             author: '1',
@@ -104,9 +105,13 @@ angular.module('trailApp')
 
     var self = {};
 
-    self.getFeatureById = function (featureId, onSuccess, onFailure) {
-      var feature = dummyFeatures[featureId];
-      onSuccess(feature);
+    self.getTrailById = function (trailId, onSuccess, onError) {
+      var trail = dummyTrail[trailId];
+      onSuccess(trail);
+    };
+
+    self.getAllTrails = function (onSuccess, onError) {
+      onSuccess(dummyTrail);
     };
 
     return self;
