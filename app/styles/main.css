@@ -3,7 +3,6 @@ body {
 }
 
 .header {
-    position: fixed;
     background-color: #449d44;
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
     font-size: 20px;
@@ -181,7 +180,7 @@ body {
 }
 
 .container {
-    max-width: 900px;
+    max-width: 800px;
     display: table;
 }
 
@@ -283,4 +282,35 @@ body {
 .loggedInUserBox {
     float: right;
     padding-right: 5px;
+}
+
+#trailList {
+    width: 50%;
+    margin: 0 auto;
+    font-size: 16px;
+}
+
+.trailListItem {
+
+}
+
+.addTrailBtn {
+    cursor: pointer;
+    padding: 2px;
+    float: right;
+}
+
+.goToTrailBtn {
+    cursor: pointer;
+    padding: 2px;
+    float: right;
+}
+
+.addTrailInput {
+    background: transparent;
+    border: 0px;
+    outline: 0;
+    border-bottom: 1px solid #E0E0E0;
+    width: 500px;
+    resize: none;
 }

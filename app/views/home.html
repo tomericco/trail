@@ -1,8 +1,22 @@
-<div class="header">
-    <div class="title">
-        <span class="trailTitle">Trail</span>
+<div>
+    <div class="header">
+        <div class="title">
+            <span class="trailTitle">Trail</span>
             <span class="loggedInUserBox">
                 <img class="avatar" ng-src="{{loggedInUser.avatar}}" alt=""/>
             </span>
+        </div>
+    </div>
+
+    <div id="trailList" class="container">
+        <div class="trailListItem panel-body" ng-repeat="(id, trail) in trails">
+            <span>{{trail.name}}</span>
+            <span class="goToTrailBtn glyphicon glyphicon-chevron-right" ng-click="goToTrail(id)"></span>
+        </div>
+
+        <div class="panel-body">
+            <input type="text" class="addTrailInput" ng-model="trailName" />
+            <add-go-button-set></add-go-button-set>
+        </div>
     </div>
 </div>
