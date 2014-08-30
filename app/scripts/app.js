@@ -8,8 +8,7 @@ angular.module('trailApp', [
   'angularMoment',
   'ui.router',
   'firebase'
-])
-  .config(function ($stateProvider, $urlRouterProvider, $logProvider) {
+]).config(function ($stateProvider, $urlRouterProvider, $logProvider) {
     $stateProvider.state('trail', {
       url: '/trail/:trailId',
       templateUrl: 'views/trail.html',
@@ -29,4 +28,4 @@ angular.module('trailApp', [
 //      });
 
     $logProvider.debugEnabled(true);
-  });
+  }).constant('FIREBASE_URI', 'https://trail-app.firebaseio.com/');

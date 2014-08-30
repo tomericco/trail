@@ -1,20 +1,28 @@
 'use strict';
 
 angular.module('trailApp')
-  .controller('MainCtrl', ['$scope', 'UserService', 'TrailService', function ($scope, UserService, TrailService) {
-    $scope.loggedInUser = UserService.getUserById('logged');
+  .controller('MainCtrl', ['$scope', '$firebase', 'UserService', 'FIREBASE_URI',
+    function ($scope, $firebase, UserService, FIREBASE_URI) {
+      var ref = new Firebase(FIREBASE_URI).child('trails');
+      var sync = $firebase(ref);
+      var trails = sync.$asObject();
 
-    $scope.addTrail = function (id, name) {
-      var trail = TrailService.addTrail(id, name);
-      $scope.trails[id] = trail;
-      $scope.$digest();
-    };
+      trails.$bindTo($scope, 'trails');
+      $scope.loggedInUser = UserService.getUserById('logged');
 
-    $scope.goToTrail = function (id) {
-      window.location.href = '#/trail/' + id;
-    };
+      $scope.addTrail = function (id, name) {
+        var trail = {
+          id: id,
+          name: name,
+          bricks: [],
+          contributors: []
+        };
 
-    TrailService.getAllTrails(function (trails) {
-      $scope.trails = trails;
-    });
+        $scope.trails[id] = trail;
+        $scope.trailName = '';
+      };
+
+      $scope.goToTrail = function (id) {
+        window.location.href = '#/trail/' + id;
+      };
   }]);
