@@ -8,7 +8,7 @@ angular.module('trailApp')
       restrict: 'AE',
       template:
         '<span>' +
-          '<span class="goToTrailBtn glyphicon glyphicon-chevron-right"></span>' +
+          '<span style="visibility: hidden;" class="goToTrailBtn glyphicon glyphicon-chevron-right"></span>' +
           '<span class="addTrailBtn glyphicon glyphicon-plus"></span>' +
         '</span>',
       link: function (scope, el) {

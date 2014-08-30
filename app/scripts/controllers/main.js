@@ -7,6 +7,7 @@ angular.module('trailApp')
     $scope.addTrail = function (id, name) {
       var trail = TrailService.addTrail(id, name);
       $scope.trails[id] = trail;
+      $scope.$digest();
     };
 
     $scope.goToTrail = function (id) {

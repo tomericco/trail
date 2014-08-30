@@ -126,6 +126,9 @@ body {
 }
 
 .trailTitle {
+    display: inline-block;
+    padding-left: 20px;
+    color: #FAFAFA;
     vertical-align: middle;
 }
 
@@ -280,8 +283,17 @@ body {
 }
 
 .loggedInUserBox {
+    vertical-align: middle;
+    display: inline-block;
     float: right;
+    line-height: 45px;
     padding-right: 5px;
+}
+
+.helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
 }
 
 #trailList {
@@ -291,7 +303,7 @@ body {
 }
 
 .trailListItem {
-
+    padding-right: 36px;
 }
 
 .addTrailBtn {
@@ -304,6 +316,7 @@ body {
     cursor: pointer;
     padding: 2px;
     float: right;
+    opacity: .5;
 }
 
 .addTrailInput {
