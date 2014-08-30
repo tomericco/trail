@@ -6,7 +6,8 @@ angular.module('trailApp', [
   'ngSanitize',
   'ngRoute',
   'angularMoment',
-  'ui.router'
+  'ui.router',
+  'firebase'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $logProvider) {
     $stateProvider.state('trail', {
