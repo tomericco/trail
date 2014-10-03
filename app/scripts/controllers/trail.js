@@ -1,27 +1,38 @@
 'use strict';
 
 angular.module('trailApp')
-  .controller('TrailCtrl', ['$scope', '$stateParams', 'UtilsService', function ($scope, $stateParams, UtilsService) {
-    $scope.dueDate = '10 days';
-    $scope.types = ['code', 'comment', 'meeting'];
-    $scope.type = 'comment';
+  .controller('TrailCtrl', ['$scope', '$stateParams', '$firebase', 'FIREBASE_URI',
+    function ($scope, $stateParams, $firebase, FIREBASE_URI) {
+//    var trail = $scope.$parent.trails[$stateParams.trailId];
+    var ref = new Firebase(FIREBASE_URI).child('trails').child($stateParams.trailId);
+    var sync = $firebase(ref);
+    var trail = sync.$asObject();
+
+    if (trail) {
+      $scope.trail = trail;
+//      $scope.trail.dueDate = UtilsService.getTimeLeftAsString(trail.dueDate);
+      $scope.trail.dueDate = '10 days';
+      $scope.trail.types = ['code', 'comment', 'meeting'];
+      $scope.trail.type = 'comment';
+
+      trail.$bindTo($scope, 'trail');
+    }
 
     $scope.addBrick = function (brick) {
-      $scope.bricks.$add({
+      $scope.trail.bricks = $scope.trail.bricks || [];
+      $scope.trail.bricks.push({
         type: brick.type,
         content: brick.content,
         time: new Date()
       });
     };
 
-    $scope.setAddBrickType = function (type) {
-      $scope.type = type;
+    $scope.addContributor = function (contributor) {
+      $scope.trail.contributors = $scope.trail.contributors || [];
+      $scope.trail.contributors.push(contributor);
     };
 
-    var trail = $scope.$parent.trails[$stateParams.trailId];
-
-    if (trail) {
-      $scope = trail;
-      $scope.dueDate = UtilsService.getTimeLeftAsString(trail.dueDate);
-    }
+    $scope.setAddBrickType = function (type) {
+      $scope.trail.type = type;
+    };
   }]);

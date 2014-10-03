@@ -5,7 +5,7 @@ angular.module('trailApp')
     var self = {};
 
     self.getUserById = function (id) {
-      if (id === 'logged') {
+      if (id === 'google:108573017193457783775') {
         return {
           avatar: 'https://avatars2.githubusercontent.com/u/1524181?s=40',
           id: 'logged',

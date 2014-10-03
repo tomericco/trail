@@ -7,18 +7,31 @@ angular.module('trailApp')
       var sync = $firebase(ref);
       var trails = sync.$asObject();
 
-      trails.$bindTo($scope, 'trails');
-      $scope.loggedInUser = UserService.getUserById('logged');
+      if (!$scope.authClient) {
+        $scope.authClient = new FirebaseSimpleLogin(ref, function(error, user) {
+          if (error) {
+            // an error occurred while attempting login
+            console.log(error);
+          } else if (user) {
+            // user authenticated with Firebase
+            console.log("User ID: " + user.uid + ", Provider: " + user.provider);
+            $scope.loggedInUser = UserService.getUserById(user.uid);
+            trails.$bindTo($scope, 'trails');
+          } else {
+            // user is logged out
+            $scope.loggedInUser = null;
+            $scope.authClient.login('google');
+          }
+        });
+      }
 
       $scope.addTrail = function (id, name) {
-        var trail = {
+        $scope.trails[id] = {
           id: id,
           name: name,
           bricks: [],
           contributors: []
         };
-
-        $scope.trails[id] = trail;
         $scope.trailName = '';
       };
 

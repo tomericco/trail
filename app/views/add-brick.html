@@ -4,7 +4,7 @@
         <li ng-click="setAddBrickType('req')"><a>Requirement</a></li>
         <li ng-click="setAddBrickType('meeting')"><a>Meeting</a></li>
     </ul>
-    <div ng-show="type === 'comment'">
+    <div ng-show="trail.type === 'comment'">
         <div class="brickAddBox">
             <textarea placeholder="Say something about the progress..." class="commentBox" ng-model="commentContent"></textarea>
         </div>
@@ -12,11 +12,11 @@
             <span class="glyphicon glyphicon-comment"></span>
         </button>
     </div>
-    <div ng-show="type === 'req'">
+    <div ng-show="trail.type === 'req'">
         <div class="brickAddBox">
             <textarea placeholder="What to do next?" class="reqBox" ng-model="reqContent"></textarea>
             <div class="assigneeBox">
-                <span class="markedOut" ng-repeat="contributor in contributors" ng-click="setAsAssignee($event, contributor)">
+                <span class="markedOut" ng-repeat="contributor in trail.contributors" ng-click="setAsAssignee($event, contributor)">
                     <img class="avatar meetingParticipant" ng-src="{{contributor.avatar}}" alt="" />
                 </span>
             </div>
@@ -25,7 +25,7 @@
             <span class="glyphicon glyphicon-comment"></span>
         </button>
     </div>
-    <div class="brickAddBox" ng-show="type === 'meeting'">
+    <div ng-show="trail.type === 'meeting'" class="brickAddBox">
         <div class="col-xs-6 col-md-4 meetingBox" id="meetingLocationBox">
             <div class="meetingIcon">
                 <span class="glyphicon glyphicon-map-marker"></span>
@@ -45,7 +45,7 @@
                 <span class="glyphicon glyphicon-user"></span>
             </div>
             <div class="centerContainer">
-                <span ng-repeat="contributor in contributors" ng-init="setMeetingParticipants(contributor)" ng-click="toggleMeetingParticipant($event, contributor)">
+                <span ng-repeat="contributor in trail.contributors" ng-init="setMeetingParticipants(contributor)" ng-click="toggleMeetingParticipant($event, contributor)">
                     <img class="avatar meetingParticipant" ng-src="{{contributor.avatar}}" alt="" />
                 </span>
             </div>

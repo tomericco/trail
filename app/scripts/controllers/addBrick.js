@@ -16,7 +16,7 @@ angular.module('trailApp')
     };
 
     $scope.addReqBrick = function (content) {
-      var assignee = $scope.reqAssignee;
+      var assignee = $scope.reqAssignee || {};
 
       $scope.addBrick({
         type: 'req',
@@ -36,9 +36,9 @@ angular.module('trailApp')
       var brickObj = {
         type: 'meeting',
         content: {
-          day: $scope.meetingDay,
-          time: $scope.meetingTime,
-          location: $scope.meetingLocationInput,
+          day: $scope.meetingDay || null,
+          time: $scope.meetingTime || null,
+          location: $scope.meetingLocationInput || null,
           purpose: 'sync',
           participants: goingParticipants
         }

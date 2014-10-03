@@ -13,9 +13,13 @@
             <span class="goToTrailBtn glyphicon glyphicon-chevron-right" ng-click="goToTrail(id)"></span>
         </div>
 
-        <div class="panel-body">
+        <div class="panel-body" ng-show="loggedInUser">
             <input type="text" class="addTrailInput" ng-model="trailName" />
             <add-go-button-set></add-go-button-set>
+        </div>
+
+        <div class="panel-body" ng-hide="loggedInUser">
+            <span> --- Log in screen --- </span>
         </div>
     </div>
 </div>

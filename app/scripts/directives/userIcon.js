@@ -11,7 +11,13 @@ angular.module('trailApp')
       link: function (scope, el, attrs) {
         var user = _.find(scope.contributors, { id: attrs.userId });
         var iconEl = $(el.children()[0]);
-        iconEl.attr('src', user.avatar);
+
+        if (user) {
+          iconEl.attr('src', user.avatar);
+        } else {
+          iconEl.attr('src', 'https://avatars2.githubusercontent.com/u/1524181?s=40');
+        }
+
       }
     };
   }]);

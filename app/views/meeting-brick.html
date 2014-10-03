@@ -6,5 +6,6 @@
         <span ng-repeat="participant in brick.content.participants">
             <img class="avatar" ng-src="{{participant.avatar}}" alt=""/>
         </span>
+        <span ng-show="!brick.content.participants.length">no one.</span>
     </div>
 </div>

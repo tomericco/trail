@@ -9,10 +9,10 @@
 <div class="header">
     <div class="title">
         <a class="backBtn glyphicon glyphicon-chevron-left" href="#home" />
-        <span class="trailTitle">{{name}}</span>
+        <span class="trailTitle">{{trail.name}}</span>
     </div>
     <div id="contributors">
-        <div ng-repeat="contributor in contributors">
+        <div ng-repeat="contributor in trail.contributors">
             <img class="avatar" ng-src="{{contributor.avatar}}" alt=""/>
         </div>
     </div>
@@ -22,11 +22,11 @@
     <div class="feed">
         <div id="timeline">
             <div class="timeLeft">
-                <span class="timestamp">{{dueDate}}</span> left for finishing this task!
+                <span class="timestamp">{{trail.dueDate}}</span> left for finishing this task!
             </div>
         </div>
 
-        <div ng-repeat="brick in bricks" ng-switch on="brick.type">
+        <div ng-repeat="brick in trail.bricks" ng-switch on="brick.type">
             <div code-brick ng-switch-when="code"></div>
             <div comment-brick ng-switch-when="comment"></div>
             <div meeting-brick ng-switch-when="meeting"></div>
