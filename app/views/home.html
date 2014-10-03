@@ -9,7 +9,7 @@
 
     <div id="trailList" class="container">
         <div class="trailListItem panel-body" ng-repeat="(id, trail) in trails">
-            <span>{{trail.name}}</span>
+            <span class="trailListItemTitle" ng-click="goToTrail(id)">{{trail.name}}</span>
             <span class="goToTrailBtn glyphicon glyphicon-chevron-right" ng-click="goToTrail(id)"></span>
         </div>
 

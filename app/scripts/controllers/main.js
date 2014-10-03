@@ -29,6 +29,7 @@ angular.module('trailApp')
         $scope.trails[id] = {
           id: id,
           name: name,
+          owner: $scope.loggedInUser.id,
           bricks: [],
           contributors: []
         };
@@ -36,6 +37,9 @@ angular.module('trailApp')
       };
 
       $scope.goToTrail = function (id) {
-        window.location.href = '#/trail/' + id;
+        // Push changes to server and only then go to trail (critical in add and go to scenario)
+        trails.$save().then(function () {
+          window.location.href = '#/trail/' + id;
+        });
       };
   }]);

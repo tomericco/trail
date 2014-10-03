@@ -306,6 +306,10 @@ body {
     padding-right: 36px;
 }
 
+.trailListItemTitle {
+    cursor: pointer;
+}
+
 .addTrailBtn {
     cursor: pointer;
     padding: 2px;

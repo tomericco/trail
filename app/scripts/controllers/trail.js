@@ -6,17 +6,16 @@ angular.module('trailApp')
 //    var trail = $scope.$parent.trails[$stateParams.trailId];
     var ref = new Firebase(FIREBASE_URI).child('trails').child($stateParams.trailId);
     var sync = $firebase(ref);
-    var trail = sync.$asObject();
+    var record = sync.$asObject();
 
-    if (trail) {
-      $scope.trail = trail;
-//      $scope.trail.dueDate = UtilsService.getTimeLeftAsString(trail.dueDate);
-      $scope.trail.dueDate = '10 days';
-      $scope.trail.types = ['code', 'comment', 'meeting'];
-      $scope.trail.type = 'comment';
+    record.$loaded().then(function(trail) {
+      //      $scope.trail.dueDate = UtilsService.getTimeLeftAsString(trail.dueDate);
+      trail.dueDate = '10 days';
+      trail.types = ['code', 'comment', 'meeting'];
+      trail.type = 'comment';
 
       trail.$bindTo($scope, 'trail');
-    }
+    });
 
     $scope.addBrick = function (brick) {
       $scope.trail.bricks = $scope.trail.bricks || [];
