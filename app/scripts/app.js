@@ -7,7 +7,8 @@ angular.module('trailApp', [
   'ngRoute',
   'angularMoment',
   'ui.router',
-  'firebase'
+  'firebase',
+  'ui.bootstrap'
 ]).config(function ($stateProvider, $urlRouterProvider, $logProvider) {
     $stateProvider.state('trail', {
       url: '/trail/:trailId',
