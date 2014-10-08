@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('trailApp')
-  .controller('TrailCtrl', ['$scope', '$stateParams', '$firebase', 'FIREBASE_URI',
-    function ($scope, $stateParams, $firebase, FIREBASE_URI) {
+  .controller('TrailCtrl', ['$scope', '$stateParams', '$firebase', 'FIREBASE_URI', 'UserService',
+    function ($scope, $stateParams, $firebase, FIREBASE_URI, UserService) {
 //    var trail = $scope.$parent.trails[$stateParams.trailId];
     var ref = new Firebase(FIREBASE_URI).child('trails').child($stateParams.trailId);
     var sync = $firebase(ref);
@@ -33,5 +33,20 @@ angular.module('trailApp')
 
     $scope.setAddBrickType = function (type) {
       $scope.trail.type = type;
+    };
+
+    $scope.searchUser = function (val) {
+//      return $http.get('http://maps.googleapis.com/maps/api/geocode/json', {
+//        params: {
+//          address: val,
+//          sensor: false
+//        }
+//      }).then(function (response) {
+//        return response.data.results.map(function (item) {
+//          return item.formatted_address;
+//        });
+//      });
+
+      return UserService.searchUserByName(val);
     };
   }]);

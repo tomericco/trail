@@ -1,18 +1,42 @@
 'use strict';
 
 angular.module('trailApp')
-  .factory('UserService', function () {
+  .factory('UserService', ['$firebase', 'FIREBASE_URI', function ($firebase, FIREBASE_URI) {
+    var usersRef = new Firebase(FIREBASE_URI).child('users');
     var self = {};
 
     self.getUserById = function (id) {
-      if (id === 'google:108573017193457783775') {
-        return {
-          avatar: 'https://avatars2.githubusercontent.com/u/1524181?s=40',
-          id: 'google:108573017193457783775',
-          name: 'Joey'
-        }
+      var user = $firebase(usersRef.child(id)).$asObject();
+
+      return user.$loaded().then(function(data) {
+        return data;
+      });
+    };
+
+    self.persistUser = function (user) {
+      switch (user.provider) {
+        case 'google':
+          return persistGoogleUser(user);
       }
     };
 
+    self.searchUserByName = function (name) {
+      var searchQuery = usersRef.limit(10);
+    };
+
+    function persistGoogleUser(user) {
+      var userPersistedObj = {};
+
+      userPersistedObj[user.uid] = {
+        id: user.uid,
+        avatar: user.thirdPartyUserData.picture,
+        name: user.thirdPartyUserData.name
+      };
+
+      usersRef.set(userPersistedObj);
+
+      return userPersistedObj;
+    }
+
     return self;
-  });
+  }]);

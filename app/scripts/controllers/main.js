@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('trailApp')
-  .controller('MainCtrl', ['$scope', '$firebase', 'UserService', 'FIREBASE_URI',
-    function ($scope, $firebase, UserService, FIREBASE_URI) {
+  .controller('MainCtrl', ['$scope', '$firebase', 'FIREBASE_URI', 'UserService',
+    function ($scope, $firebase, FIREBASE_URI, UserService) {
       var ref = new Firebase(FIREBASE_URI).child('trails');
       var sync = $firebase(ref);
       var trails = sync.$asObject();
@@ -15,7 +15,18 @@ angular.module('trailApp')
           } else if (user) {
             // user authenticated with Firebase
             console.log("User ID: " + user.uid + ", Provider: " + user.provider);
-            $scope.loggedInUser = UserService.getUserById(user.uid);
+
+            UserService.getUserById(user.uid).then(function (persistedUser) {
+              if (!persistedUser.id) {
+                persistedUser = UserService.persistUser(user);
+              }
+              var loggedInUser = {};
+              // Clone persisted object to remove 3 way binding for this variable
+              angular.extend(loggedInUser, persistedUser);
+
+              $scope.loggedInUser = loggedInUser;
+            });
+
             trails.$bindTo($scope, 'trails');
           } else {
             // user is logged out
@@ -31,7 +42,7 @@ angular.module('trailApp')
           name: name,
           owner: $scope.loggedInUser.id,
           bricks: [],
-          contributors: []
+          contributors: [$scope.loggedInUser]
         };
         $scope.trailName = '';
       };

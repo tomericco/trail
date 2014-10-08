@@ -105,12 +105,12 @@ body {
 #contributors {
     display: table-cell;
     vertical-align: middle;
-    padding-right: 15px;
+    padding-right: 5px;
 }
 
-#contributors img {
+#contributors .avatar {
     float: right;
-    margin: 3px;
+    margin-left: 5px;
 }
 
 .backBtn {
@@ -203,6 +203,8 @@ body {
 .avatar {
     border-radius: 4px;
     box-shadow: 0 1px 0 #449d44;
+    max-width: 40px;
+    max-height: 40px;
 }
 
 .commitId {
@@ -330,4 +332,42 @@ body {
     border-bottom: 1px solid #E0E0E0;
     width: 500px;
     resize: none;
+}
+
+.addContributorBtn {
+    background-color: #b3b3b3;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    opacity: .8;
+    cursor: pointer;
+    color: #ccc;
+    margin-top: -1px; /* Hack - Fix it! */
+}
+
+.addContributorBtn:hover {
+    color: #ddd;
+}
+
+.searchUserContainer {
+    height: 40px;
+}
+
+.searchUserContainer, .searchUserContainer * {
+    display: table-cell;
+    vertical-align: middle;
+    float: right;
+}
+
+.verticalAlignMiddle {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.userSearchInput {
+    width: 180px;
+    font-size: 14px;
+    margin-left: 5px;
 }

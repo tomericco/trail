@@ -8,12 +8,28 @@
 
 <div class="header">
     <div class="title">
-        <a class="backBtn glyphicon glyphicon-chevron-left" href="#home" />
+        <a class="backBtn glyphicon glyphicon-chevron-left" href="#home"/>
         <span class="trailTitle">{{trail.name}}</span>
     </div>
     <div id="contributors">
         <div ng-repeat="contributor in trail.contributors">
             <img class="avatar" ng-src="{{contributor.avatar}}" alt=""/>
+        </div>
+        <div class="searchUserContainer">
+            <input ng-show="showUserSearchInput"
+                   type="text"
+                   typeahead="user for user in searchUser($viewValue)"
+                   typeahead-on-select="addContributor($item, $model, $label)"
+                   typeahead-min-length="2"
+                   ng-model="userSearchQuery"
+                   placeholder="Type Email or username"
+                   typeahead-loading="loadingUsers"
+                   size="15"
+                   class="userSearchInput verticalAlignMiddle form-control">
+
+            <div ng-init="showUserSearchInput=false"
+                  ng-click="showUserSearchInput=!showUserSearchInput"
+                  class="avatar addContributorBtn glyphicon glyphicon-plus"></div>
         </div>
     </div>
 </div>
@@ -44,6 +60,5 @@
 <div class="footer">
 
 </div>
-
 </body>
 </html>
