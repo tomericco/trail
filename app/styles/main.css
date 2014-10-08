@@ -1,3 +1,18 @@
+.cover {
+    background: url(/images/trail_homescreen.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
 body {
     background-color: #FAFAFA;
 }
@@ -370,4 +385,42 @@ body {
     width: 180px;
     font-size: 14px;
     margin-left: 5px;
+}
+
+#googleLoginBtn {
+    display: block;
+    margin: auto;
+    background: #dd4b39;
+    color: white;
+    border-radius: 5px;
+    white-space: nowrap;
+    cursor: pointer;
+    width: 204px;
+}
+
+#googleLoginBtn:hover {
+    background: #e74b37;
+}
+
+#googleLoginBtn .icon {
+    background: url('https://google-developers.appspot.com/+/images/branding/btn_red_32.png') transparent 5px 50% no-repeat;
+    display: inline-block;
+    vertical-align: middle;
+    width: 35px;
+    height: 35px;
+    border-right: #bb3f30 1px solid;
+}
+
+#googleLoginBtn .buttonText {
+    display: inline-block;
+    vertical-align: middle;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 16px;
+    font-family: 'Roboto',arial,sans-serif;
+}
+
+.loginContainer {
+    width: 400px;
+    margin: auto;
 }

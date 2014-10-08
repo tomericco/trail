@@ -1,25 +1,31 @@
-<div>
+<div ng-class="{coverImg: loggedInUser === null}">
     <div class="header">
         <span class="helper"></span>
         <span class="trailTitle">Trail</span>
-        <span class="loggedInUserBox">
-            <img class="avatar" ng-src="{{loggedInUser.avatar}}" alt=""/>
-        </span>
+            <span class="loggedInUserBox">
+                <img class="avatar" ng-src="{{loggedInUser.avatar}}" alt=""/>
+            </span>
     </div>
+    <div ng-show="loggedInUser">
+        <div id="trailList" class="container">
+            <div class="trailListItem panel-body" ng-repeat="(id, trail) in trails">
+                <span class="trailListItemTitle" ng-click="goToTrail(id)">{{trail.name}}</span>
+                <span class="goToTrailBtn glyphicon glyphicon-chevron-right" ng-click="goToTrail(id)"></span>
+            </div>
 
-    <div id="trailList" class="container">
-        <div class="trailListItem panel-body" ng-repeat="(id, trail) in trails">
-            <span class="trailListItemTitle" ng-click="goToTrail(id)">{{trail.name}}</span>
-            <span class="goToTrailBtn glyphicon glyphicon-chevron-right" ng-click="goToTrail(id)"></span>
+            <div class="panel-body" ng-show="loggedInUser">
+                <input type="text" class="addTrailInput" ng-model="trailName" />
+                <add-go-button-set></add-go-button-set>
+            </div>
         </div>
-
-        <div class="panel-body" ng-show="loggedInUser">
-            <input type="text" class="addTrailInput" ng-model="trailName" />
-            <add-go-button-set></add-go-button-set>
-        </div>
-
-        <div class="panel-body" ng-hide="loggedInUser">
-            <span> --- Log in screen --- </span>
+    </div>
+    <div ng-show="loggedInUser === null">
+        <div class="cover"></div>
+        <div class="panel-body loginContainer">
+            <div id="googleLoginBtn" ng-click="loginWithGoogle()">
+                <span class="icon"></span>
+                <span class="buttonText">Sign in with Google</span>
+            </div>
         </div>
     </div>
 </div>

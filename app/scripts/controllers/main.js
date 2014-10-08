@@ -6,6 +6,7 @@ angular.module('trailApp')
       var ref = new Firebase(FIREBASE_URI).child('trails');
       var sync = $firebase(ref);
       var trails = sync.$asObject();
+      var loggedInUser = {};
 
       if (!$scope.authClient) {
         $scope.authClient = new FirebaseSimpleLogin(ref, function(error, user) {
@@ -20,7 +21,6 @@ angular.module('trailApp')
               if (!persistedUser.id) {
                 persistedUser = UserService.persistUser(user);
               }
-              var loggedInUser = {};
               // Clone persisted object to remove 3 way binding for this variable
               angular.extend(loggedInUser, persistedUser);
 
@@ -31,10 +31,13 @@ angular.module('trailApp')
           } else {
             // user is logged out
             $scope.loggedInUser = null;
-            $scope.authClient.login('google');
           }
         });
       }
+
+      $scope.loginWithGoogle = function () {
+        $scope.authClient.login('google');
+      };
 
       $scope.addTrail = function (id, name) {
         $scope.trails[id] = {
