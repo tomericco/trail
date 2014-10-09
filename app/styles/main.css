@@ -396,6 +396,7 @@ body {
     white-space: nowrap;
     cursor: pointer;
     width: 204px;
+    margin-top: 30px;
 }
 
 #googleLoginBtn:hover {
@@ -421,6 +422,21 @@ body {
 }
 
 .loginContainer {
-    width: 400px;
+    width: 650px;
     margin: auto;
+}
+
+.landingPageTitle {
+    text-align: center;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    color: white;
+    white-space: pre-line;
+}
+
+.mainTitle {
+    font-size: 28px;
+}
+
+.subTitle {
+    font-size: 24px;
 }

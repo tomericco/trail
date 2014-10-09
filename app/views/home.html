@@ -22,6 +22,14 @@
     <div ng-show="loggedInUser === null">
         <div class="cover"></div>
         <div class="panel-body loginContainer">
+            <div class="landingPageTitle mainTitle">
+                {{mainTitle}}
+            </div>
+            <br/>
+            <br/>
+            <div class="landingPageTitle subTitle">
+                {{tryNowTitle}}
+            </div>
             <div id="googleLoginBtn" ng-click="loginWithGoogle()">
                 <span class="icon"></span>
                 <span class="buttonText">Sign in with Google</span>

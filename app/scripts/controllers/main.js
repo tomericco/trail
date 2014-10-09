@@ -8,6 +8,9 @@ angular.module('trailApp')
       var trails = sync.$asObject();
       var loggedInUser = {};
 
+      $scope.mainTitle = 'Every product development is a journey.\nTrail helps you being collaborative and efficient.';
+      $scope.tryNowTitle = 'Try it now, it\'s free!';
+
       if (!$scope.authClient) {
         $scope.authClient = new FirebaseSimpleLogin(ref, function(error, user) {
           if (error) {
