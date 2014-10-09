@@ -15,23 +15,10 @@ angular.module('trailApp')
         var addBtn = el.children('.addTrailBtn'),
           goToBtn = el.children('.goToTrailBtn');
 
-        function generateUUID() {
-          function s4() {
-            return Math.floor((1 + Math.random()) * 0x10000)
-              .toString(16)
-              .substring(1);
-          }
-
-          return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-            s4() + '-' + s4() + s4() + s4();
-        }
-
         function addTrail() {
-          var id = generateUUID(),
-            name = scope.trailName;
+          var name = scope.trailName.trim();
 
-          scope.addTrail(id, name);
-          scope.id = id;
+          scope.id = scope.addTrail(name);
         }
 
         addBtn.bind('mouseenter', function () {

@@ -3,8 +3,8 @@
 angular.module('trailApp')
   .controller('MainCtrl', ['$scope', '$firebase', 'FIREBASE_URI', 'UserService',
     function ($scope, $firebase, FIREBASE_URI, UserService) {
-      var ref = new Firebase(FIREBASE_URI).child('trails');
-      var sync = $firebase(ref);
+      var trailsRef = new Firebase(FIREBASE_URI).child('trails');
+      var sync = $firebase(trailsRef);
       var trails = sync.$asObject();
       var loggedInUser = {};
 
@@ -12,7 +12,7 @@ angular.module('trailApp')
       $scope.tryNowTitle = 'Try it now, it\'s free!';
 
       if (!$scope.authClient) {
-        $scope.authClient = new FirebaseSimpleLogin(ref, function(error, user) {
+        $scope.authClient = new FirebaseSimpleLogin(trailsRef, function(error, user) {
           if (error) {
             // an error occurred while attempting login
             console.log(error);
@@ -42,15 +42,24 @@ angular.module('trailApp')
         $scope.authClient.login('google');
       };
 
-      $scope.addTrail = function (id, name) {
-        $scope.trails[id] = {
-          id: id,
+      $scope.addTrail = function (name) {
+        var currentTime = new Date().getTime();
+        var newTrail = {
           name: name,
           owner: $scope.loggedInUser.id,
           bricks: [],
-          contributors: [$scope.loggedInUser]
+          contributors: [$scope.loggedInUser],
+          created: currentTime,
+          updated: currentTime
         };
+        var id = trailsRef.push();
+        id.setWithPriority(newTrail, currentTime, function (error) {
+          //TODO Handle error
+        });
+
         $scope.trailName = '';
+
+        return id.name();
       };
 
       $scope.goToTrail = function (id) {
@@ -58,5 +67,9 @@ angular.module('trailApp')
         trails.$save().then(function () {
           window.location.href = '#/trail/' + id;
         });
+      };
+
+      $scope.deleteTrail = function (id) {
+        delete $scope.trails[id];
       };
   }]);
