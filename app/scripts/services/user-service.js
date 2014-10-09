@@ -30,7 +30,8 @@ angular.module('trailApp')
       userPersistedObj[user.uid] = {
         id: user.uid,
         avatar: user.thirdPartyUserData.picture,
-        name: user.thirdPartyUserData.name
+        name: user.thirdPartyUserData.name,
+        email: user.email
       };
 
       usersRef.set(userPersistedObj);
