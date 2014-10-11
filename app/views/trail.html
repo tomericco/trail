@@ -15,20 +15,27 @@
         <div ng-repeat="contributor in trail.contributors">
             <img class="avatar" ng-src="{{contributor.avatar}}" alt=""/>
         </div>
+        <script type="text/ng-template" id="contrib-add.html">
+            <a class="userResultItem">
+                <img ng-src="{{match.model.avatar}}" width="24">
+                <span class="userName" bind-html-unsafe="match.label | typeaheadHighlight:query"></span>
+            </a>
+        </script>
         <div class="searchUserContainer">
             <input ng-show="showUserSearchInput"
                    type="text"
-                   typeahead="user for user in searchUser($viewValue)"
+                   typeahead="user.name for user in searchUser($viewValue)"
                    typeahead-on-select="addContributor($item, $model, $label)"
-                   typeahead-min-length="2"
+                   typeahead-min-length="5"
                    ng-model="userSearchQuery"
                    placeholder="Type Email or username"
                    typeahead-loading="loadingUsers"
+                   typeahead-template-url="contrib-add.html"
                    size="15"
                    class="userSearchInput verticalAlignMiddle form-control">
 
-            <div ng-init="showUserSearchInput=false"
-                  ng-click="showUserSearchInput=!showUserSearchInput"
+            <div ng-init="showUserSearchInput = false"
+                  ng-click="showUserSearchInput = !showUserSearchInput"
                   class="avatar addContributorBtn glyphicon glyphicon-plus"></div>
         </div>
     </div>

@@ -20,13 +20,15 @@ angular.module('trailApp')
             // user authenticated with Firebase
             console.log("User ID: " + user.uid + ", Provider: " + user.provider);
 
-            UserService.getUserById(user.uid).then(function (persistedUser) {
-              if (!persistedUser.id) {
-                persistedUser = UserService.persistUser(user);
-              }
+            UserService.getUserByEmail(user.email).then(function userExistsCallback(persistedUser) {
+              return persistedUser;
+            },function userNotExistsCallback() {
+              var persistedUser = UserService.persistUser(user);
+
+              return persistedUser;
+            }).then(function (persistedUser) {
               // Clone persisted object to remove 3 way binding for this variable
               angular.extend(loggedInUser, persistedUser);
-
               $scope.loggedInUser = loggedInUser;
             });
 
@@ -52,14 +54,16 @@ angular.module('trailApp')
           created: currentTime,
           updated: currentTime
         };
-        var id = trailsRef.push();
-        id.setWithPriority(newTrail, currentTime, function (error) {
-          //TODO Handle error
+        var trailId = trailsRef.push();
+        trailId.setWithPriority(newTrail, currentTime, function (error) {
+          if (!error) {
+            UserService.addTrailToUser($scope.loggedInUser.id, trailId.name(), 'OWNER');
+          }
         });
 
         $scope.trailName = '';
 
-        return id.name();
+        return trailId.name();
       };
 
       $scope.goToTrail = function (id) {

@@ -1,16 +1,30 @@
 'use strict';
 
 angular.module('trailApp')
-  .factory('UserService', ['$firebase', 'FIREBASE_URI', function ($firebase, FIREBASE_URI) {
+  .factory('UserService', ['$q', '$firebase', 'FIREBASE_URI', function ($q, $firebase, FIREBASE_URI) {
     var usersRef = new Firebase(FIREBASE_URI).child('users');
     var self = {};
 
     self.getUserById = function (id) {
-      var user = $firebase(usersRef.child(id)).$asObject();
+//      var user = $firebase(usersRef.child(id)).$asObject();
+//
+//      return user.$loaded().then(function(data) {
+//        return data;
+//      });
+      var deferred = $q.defer();
 
-      return user.$loaded().then(function(data) {
-        return data;
-      });
+      usersRef.startAt(id)
+        .endAt(id)
+        .once('value', function(snap) {
+          if (snap.val()) {
+            var user = _.values(snap.val())[0]; //TODO Find more elegant way for that
+            deferred.resolve(user);
+          } else {
+            deferred.reject();
+          }
+        });
+
+      return deferred.promise;
     };
 
     self.persistUser = function (user) {
@@ -20,21 +34,40 @@ angular.module('trailApp')
       }
     };
 
-    self.searchUserByName = function (name) {
-      var searchQuery = usersRef.limit(10);
+    self.getUserByEmail = function (email) {
+      var deferred = $q.defer();
+
+      usersRef.startAt(email)
+        .endAt(email)
+        .once('value', function(snap) {
+          if (snap.val()) {
+            var user = _.values(snap.val())[0]; //TODO Find more elegant way for that
+            deferred.resolve(user);
+          } else {
+            deferred.reject(null);
+          }
+        });
+
+      return deferred.promise;
+    };
+
+    self.addTrailToUser = function (userId, trailId, role) {
+      usersRef.child(userId + '/trails/' + trailId).set(role);
     };
 
     function persistGoogleUser(user) {
-      var userPersistedObj = {};
-
-      userPersistedObj[user.uid] = {
-        id: user.uid,
+      var id = usersRef.push();
+      var userPersistedObj = {
+        id: id.name(),
         avatar: user.thirdPartyUserData.picture,
         name: user.thirdPartyUserData.name,
-        email: user.email
+        email: user.email,
+        trails: []
       };
 
-      usersRef.set(userPersistedObj);
+      id.setWithPriority(userPersistedObj, userPersistedObj.email, function (error) {
+        //TODO Handle error
+      });
 
       return userPersistedObj;
     }

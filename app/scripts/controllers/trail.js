@@ -22,13 +22,19 @@ angular.module('trailApp')
       $scope.trail.bricks.push({
         type: brick.type,
         content: brick.content,
-        time: new Date()
+        created: new Date()
       });
     };
 
     $scope.addContributor = function (contributor) {
+      $scope.userSearchQuery = '';
+      $scope.showUserSearchInput = false; // Hide search user input
       $scope.trail.contributors = $scope.trail.contributors || [];
       $scope.trail.contributors.push(contributor);
+
+      UserService.addTrailToUser(contributor.id, $scope.trail.$id, 'CONTRIBUTOR');
+
+      //TODO Send Email notification to user
     };
 
     $scope.setAddBrickType = function (type) {
@@ -36,17 +42,15 @@ angular.module('trailApp')
     };
 
     $scope.searchUser = function (val) {
-//      return $http.get('http://maps.googleapis.com/maps/api/geocode/json', {
-//        params: {
-//          address: val,
-//          sensor: false
-//        }
-//      }).then(function (response) {
-//        return response.data.results.map(function (item) {
-//          return item.formatted_address;
-//        });
-//      });
+      return UserService.getUserByEmail(val).then(function (user) {
+        if (user) {
+          var contibsToAdd = _.filter([user], function (user) {
+            var currentContribEmails = _.pluck($scope.trail.contributors, 'email');
+            return _.contains(user.email, currentContribEmails)
+          });
 
-      return UserService.searchUserByName(val);
+          return contibsToAdd;
+        }
+      });
     };
   }]);

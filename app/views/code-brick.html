@@ -1,7 +1,7 @@
 <div class="brick">
     <user-icon user-id="3"></user-icon>
     <div class="brickContent">
-        <span class="timestamp" am-time-ago="brick.time"></span>
+        <span class="timestamp" am-time-ago="brick.created"></span>
         <div><strong>{{brick.content.author}}</strong> pushed {{brick.content.commits.length}} commits:</div>
         <div ng-repeat="commit in brick.content.commits">
             <span class="glyphicon glyphicon-log-in commitIcon"> </span>

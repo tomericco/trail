@@ -121,6 +121,7 @@ body {
     display: table-cell;
     vertical-align: middle;
     padding-right: 5px;
+    width: 600px;
 }
 
 #contributors .avatar {
@@ -367,12 +368,21 @@ body {
 
 .searchUserContainer {
     height: 40px;
+    cursor: pointer;
 }
 
-.searchUserContainer, .searchUserContainer * {
+.searchUserContainer, .searchUserContainer input {
     display: table-cell;
     vertical-align: middle;
     float: right;
+}
+
+.searchUserContainer ul {
+    width: 180px;
+}
+
+.searchUserContainer .userResultItem, .searchUserContainer .userResultItem .userName {
+    padding-left: 10px;
 }
 
 .verticalAlignMiddle {
