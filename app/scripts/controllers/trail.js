@@ -41,12 +41,12 @@ angular.module('trailApp')
       $scope.trail.type = type;
     };
 
-    $scope.searchUser = function (val) {
+    $scope.searchUser = function (val) { //TODO Move implementation to a service
       return UserService.getUserByEmail(val).then(function (user) {
         if (user) {
           var contibsToAdd = _.filter([user], function (user) {
             var currentContribEmails = _.pluck($scope.trail.contributors, 'email');
-            return _.contains(user.email, currentContribEmails)
+            return !_.contains(user.email, currentContribEmails)
           });
 
           return contibsToAdd;
