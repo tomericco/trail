@@ -1,9 +1,10 @@
 'use strict';
 
 angular.module('trailApp')
-  .controller('MainCtrl', ['$scope', '$firebase', 'FIREBASE_URI', 'UserService',
-    function ($scope, $firebase, FIREBASE_URI, UserService) {
+  .controller('MainCtrl', ['$scope', '$firebase', 'FIREBASE_URI', 'UserService', 'TrailService',
+    function ($scope, $firebase, FIREBASE_URI, UserService, TrailService) {
       var trailsRef = new Firebase(FIREBASE_URI).child('trails');
+      var usersRef = new Firebase(FIREBASE_URI).child('users');
       var sync = $firebase(trailsRef);
       var trails = sync.$asObject();
       var loggedInUser = {};
@@ -30,9 +31,25 @@ angular.module('trailApp')
               // Clone persisted object to remove 3 way binding for this variable
               angular.extend(loggedInUser, persistedUser);
               $scope.loggedInUser = loggedInUser;
-            });
 
-            trails.$bindTo($scope, 'trails');
+              TrailService.getTrailsByUserId($scope.loggedInUser.id).then(function (trails) {
+                $scope.trails = trails || {};
+              });
+
+              var loggedInUserTrailsRef = usersRef.child($scope.loggedInUser.id).child('trails');
+
+              loggedInUserTrailsRef.on('child_added', function (snap) {
+                var trailId = snap.name();
+                TrailService.getTrailById(trailId).then(function (trail) {
+                  $scope.trails[trailId] = trail;
+                });
+              });
+
+              loggedInUserTrailsRef.on('child_removed', function (snap) {
+                //TODO
+                debugger;
+              });
+            });
           } else {
             // user is logged out
             $scope.loggedInUser = null;
@@ -54,16 +71,21 @@ angular.module('trailApp')
           created: currentTime,
           updated: currentTime
         };
-        var trailId = trailsRef.push();
-        trailId.setWithPriority(newTrail, currentTime, function (error) {
+        var newTrailRef = trailsRef.push();
+        var newTrailId = newTrailRef.name();
+
+        // Improve perceived performance by putting immediately the new trail on the list
+        $scope.trails[newTrailId] = newTrail;
+
+        newTrailRef.setWithPriority(newTrail, $scope.loggedInUser.id, function (error) {
           if (!error) {
-            UserService.addTrailToUser($scope.loggedInUser.id, trailId.name(), 'OWNER');
+            UserService.addTrailToUser($scope.loggedInUser.id, newTrailRef.name(), 'OWNER');
           }
         });
 
         $scope.trailName = '';
 
-        return trailId.name();
+        return newTrailId;
       };
 
       $scope.goToTrail = function (id) {
@@ -76,4 +98,4 @@ angular.module('trailApp')
       $scope.deleteTrail = function (id) {
         delete $scope.trails[id];
       };
-  }]);
+    }]);
