@@ -415,6 +415,7 @@ body {
 
 #googleLoginBtn .icon {
     background: url('https://google-developers.appspot.com/+/images/branding/btn_red_32.png') transparent 5px 50% no-repeat;
+    background-position: center;
     display: inline-block;
     vertical-align: middle;
     width: 35px;
