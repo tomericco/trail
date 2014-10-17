@@ -45,7 +45,7 @@ angular.module('trailApp')
       $scope.loginWithGoogle = function () {
         AuthService.loginWithGoogle().then(function (loggedInUser) {
           if (loggedInUser !== null) {
-            onUserLoggedIn();
+            onUserLoggedIn(loggedInUser);
           }
         },
         function onLoginError(error) {
