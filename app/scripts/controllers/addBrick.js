@@ -44,7 +44,7 @@ angular.module('trailApp')
         }
       };
 
-      this.addBrick(brickObj);
+      $scope.addBrick(brickObj);
 
       $scope.meetingTime = '';
       $scope.meetingLocation = '';

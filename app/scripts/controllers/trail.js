@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('trailApp')
-  .controller('TrailCtrl', ['$scope', '$stateParams', '$firebase', 'FIREBASE_URI', 'UserService',
-    function ($scope, $stateParams, $firebase, FIREBASE_URI, UserService) {
+  .controller('TrailCtrl', ['$rootScope', '$scope', '$stateParams', '$firebase', 'FIREBASE_URI', 'UserService',
+    function ($rootScope, $scope, $stateParams, $firebase, FIREBASE_URI, UserService) {
 //    var trail = $scope.$parent.trails[$stateParams.trailId];
     var ref = new Firebase(FIREBASE_URI).child('trails').child($stateParams.trailId);
     var sync = $firebase(ref);
@@ -22,7 +22,8 @@ angular.module('trailApp')
       $scope.trail.bricks.push({
         type: brick.type,
         content: brick.content,
-        created: new Date()
+        created: new Date(),
+        author: $rootScope.loggedInUser.id
       });
     };
 
