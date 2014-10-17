@@ -10,6 +10,10 @@ angular.module('trailApp')
 
     record.$loaded().then(function(trail) {
       //      $scope.trail.dueDate = UtilsService.getTimeLeftAsString(trail.dueDate);
+      if (!trail.created) {
+        $scope.trail = null;
+        return;
+      }
       trail.dueDate = '10 days';
       trail.types = ['code', 'comment', 'meeting'];
       trail.type = 'comment';

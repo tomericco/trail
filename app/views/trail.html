@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<div class="header">
+<div class="header" ng-hide="trail === null">
     <div class="title">
         <a class="backBtn glyphicon glyphicon-chevron-left" href="#home"/>
         <span class="trailTitle">{{trail.name}}</span>
@@ -41,7 +41,7 @@
     </div>
 </div>
 
-<div class="container">
+<div class="container" ng-hide="trail === null">
     <div class="feed">
         <div id="timeline">
             <div class="timeLeft">
@@ -64,8 +64,12 @@
     <!--<div class="rightPanel"></div>-->
 </div>
 
-<div class="footer">
+<div class="footer" ng-hide="trail === null"></div>
 
+
+<div class="well notFoundMessage" ng-show="trail === null">
+    Oops... Trail not found.
 </div>
+
 </body>
 </html>
