@@ -14,7 +14,7 @@
             </div>
 
             <div class="panel-body" ng-show="$root.loggedInUser">
-                <input type="text" class="addTrailInput" ng-model="trailName" />
+                <input type="text" class="addTrailInput" ng-model="trailName" ui-keypress="{13:'addAndGoToTrail(trailName)'}" />
                 <add-go-button-set></add-go-button-set>
             </div>
         </div>

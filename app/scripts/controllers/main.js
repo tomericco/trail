@@ -90,6 +90,12 @@ angular.module('trailApp')
 //        });
       };
 
+      $scope.addAndGoToTrail = function (name) {
+        var trailId = $scope.addTrail(name);
+
+        $scope.goToTrail(trailId);
+      };
+
       $scope.deleteTrail = function (id) {
         delete $scope.trails[id];
       };

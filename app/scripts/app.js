@@ -8,7 +8,8 @@ angular.module('trailApp', [
   'angularMoment',
   'ui.router',
   'firebase',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'ui.utils'
 ]).config(function ($stateProvider, $urlRouterProvider, $logProvider) {
     $stateProvider.state('trail', {
       url: '/trail/:trailId',
