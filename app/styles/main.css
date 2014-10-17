@@ -36,6 +36,10 @@ body {
     vertical-align: middle;
     padding-left: 20px;
     color: #FAFAFA;
+    max-width: 400px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 #timeline {
@@ -142,8 +146,6 @@ body {
 }
 
 .trailTitle {
-    display: inline-block;
-    padding-left: 20px;
     color: #FAFAFA;
     vertical-align: middle;
 }
@@ -325,6 +327,11 @@ body {
 
 .trailListItemTitle {
     cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 400px;
+    display: inline-block;
 }
 
 .addTrailBtn {
@@ -449,4 +456,9 @@ body {
 
 .subTitle {
     font-size: 24px;
+}
+
+.trailLogo {
+    padding-left: 20px;
+    color: #FAFAFA;
 }
