@@ -32,7 +32,7 @@ angular.module('trailApp')
 
     $scope.addMeetingBrick = function () {
       var goingParticipants = _.filter(this.participants, function (participant) {
-        return !participant.attending;
+        return participant.attending;
       });
       var brickObj = {
         type: 'meeting',
