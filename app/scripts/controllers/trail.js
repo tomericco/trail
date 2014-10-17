@@ -18,11 +18,13 @@ angular.module('trailApp')
     });
 
     $scope.addBrick = function (brick) {
+      var now = new Date().getTime();
+
       $scope.trail.bricks = $scope.trail.bricks || [];
       $scope.trail.bricks.push({
         type: brick.type,
         content: brick.content,
-        created: new Date(),
+        created: now,
         author: $rootScope.loggedInUser.id
       });
     };
