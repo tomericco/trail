@@ -1,5 +1,5 @@
 <div class="brick">
-    <user-icon user-id="2"></user-icon>
+    <user-icon user-id="{{$root.loggedInUser.id}}"></user-icon>
     <div class="brickContent">
         <span class="timestamp" am-time-ago="brick.created"></span>
         Meeting <strong>{{brick.content.day}}</strong> at <strong>{{brick.content.time}}</strong> in <strong>{{brick.content.location}}</strong> for <strong>{{brick.content.purpose}}</strong> with

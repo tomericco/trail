@@ -1,35 +1,31 @@
-<div ng-class="{coverImg: loggedInUser === null}">
+<div ng-class="{coverImg: $root.loggedInUser === null}">
     <div class="header">
         <span class="helper"></span>
         <span class="trailTitle">Trail</span>
-            <span class="loggedInUserBox">
-                <img class="avatar" ng-src="{{loggedInUser.avatar}}" alt=""/>
-            </span>
+        <span class="loggedInUserBox">
+            <img class="avatar" ng-src="{{$root.loggedInUser.avatar}}" alt=""/>
+        </span>
     </div>
-    <div ng-show="loggedInUser">
+    <div ng-show="$root.loggedInUser">
         <div id="trailList" class="container">
             <div class="trailListItem panel-body" ng-repeat="(id, trail) in trails">
                 <span class="trailListItemTitle" ng-click="goToTrail(id)">{{trail.name}}</span>
                 <span class="goToTrailBtn glyphicon glyphicon-chevron-right" ng-click="goToTrail(id)"></span>
             </div>
 
-            <div class="panel-body" ng-show="loggedInUser">
+            <div class="panel-body" ng-show="$root.loggedInUser">
                 <input type="text" class="addTrailInput" ng-model="trailName" />
                 <add-go-button-set></add-go-button-set>
             </div>
         </div>
     </div>
-    <div ng-show="loggedInUser === null">
+    <div ng-show="$root.loggedInUser === null">
         <div class="cover"></div>
         <div class="panel-body loginContainer">
-            <div class="landingPageTitle mainTitle">
-                {{mainTitle}}
-            </div>
+            <div class="landingPageTitle mainTitle">{{mainTitle}}</div>
             <br/>
             <br/>
-            <div class="landingPageTitle subTitle">
-                {{tryNowTitle}}
-            </div>
+            <div class="landingPageTitle subTitle">{{tryNowTitle}}</div>
             <div id="googleLoginBtn" ng-click="loginWithGoogle()">
                 <span class="icon"></span>
                 <span class="buttonText">Sign in with Google</span>

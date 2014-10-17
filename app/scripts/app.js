@@ -19,14 +19,6 @@ angular.module('trailApp', [
       templateUrl: 'views/home.html',
       controller: 'MainCtrl'
     });
-//    $routeProvider
-//      .when('/', {
-//        templateUrl: 'views/main.html',
-//        controller: 'MainCtrl'
-//      })
-//      .otherwise({
-//        redirectTo: '/'
-//      });
 
     $logProvider.debugEnabled(true);
   }).constant('FIREBASE_URI', 'https://trail-app.firebaseio.com/');
