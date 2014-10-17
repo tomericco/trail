@@ -84,10 +84,7 @@ angular.module('trailApp')
       };
 
       $scope.goToTrail = function (id) {
-        // Push changes to server and only then go to trail (critical in add and go to scenario)
-//        trails.$save().then(function () {
           window.location.href = '#/trail/' + id;
-//        });
       };
 
       $scope.addAndGoToTrail = function (name) {
@@ -98,5 +95,9 @@ angular.module('trailApp')
 
       $scope.deleteTrail = function (id) {
         delete $scope.trails[id];
+      };
+
+      $scope.emptyInput = function (event) {
+        event.target.value = '';
       };
     }]);
