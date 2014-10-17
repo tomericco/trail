@@ -22,7 +22,8 @@ angular.module('trailApp')
         type: 'req',
         content: {
           reqText: content,
-          assignee: assignee
+          assignee: assignee,
+          done: false
         }
       });
 

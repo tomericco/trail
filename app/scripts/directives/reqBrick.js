@@ -8,7 +8,9 @@ angular.module('trailApp')
             restrict: 'A',
             templateUrl: 'views/req-brick.html',
             link: function (scope, el) {
-
+              scope.toggleDoneStatus = function () {
+                scope.brick.done = !scope.brick.done;
+              };
             }
         };
     });

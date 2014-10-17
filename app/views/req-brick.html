@@ -2,8 +2,7 @@
     <user-icon user-id="{{$root.loggedInUser.id}}"></user-icon>
     <div class="brickContent">
         <span class="timestamp" am-time-ago="brick.created"></span>
-        <input type="checkbox" name="done" />
+        <input type="checkbox" name="done" ng-model="brick.done" />
         <span class="reqLabel">{{brick.content.reqText}}</span>
-        <!--<img class="avatar" ng-src="{{brick.content.assignee.avatar}}" />-->
     </div>
 </div>
