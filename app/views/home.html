@@ -9,11 +9,11 @@
     <div ng-show="$root.loggedInUser">
         <div id="trailList" class="container">
             <div class="trailListItem panel-body" ng-repeat="(id, trail) in trails">
-                <span class="trailListItemTitle" ng-click="goToTrail(id)">{{trail.name}}</span>
-                <span class="goToTrailBtn glyphicon glyphicon-chevron-right" ng-click="goToTrail(id)"></span>
+                <a class="trailListItemTitle" ng-href="#/trail/{{id}}">{{trail.name}}</a>
+                <a class="goToTrailBtn glyphicon glyphicon-chevron-right" ng-href="#/trail/{{id}}"></a>
             </div>
 
-            <div class="panel-body" ng-show="$root.loggedInUser">
+            <div class="panel-body">
                 <input type="text" class="addTrailInput" ng-model="trailName" ui-event="{blur:'emptyInput($event)'}" ui-keypress="{13:'addAndGoToTrail(trailName)'}" />
                 <add-go-button-set></add-go-button-set>
             </div>
