@@ -39,7 +39,7 @@ angular.module('trailApp')
         content: {
           day: $scope.meetingDay || null,
           time: $scope.meetingTime || null,
-          location: $scope.meetingLocationInput || null,
+          location: $scope.meetingLocation || null,
           purpose: 'sync',
           participants: goingParticipants
         }
