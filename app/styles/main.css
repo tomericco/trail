@@ -476,6 +476,11 @@ body {
     text-decoration: none;
 }
 
+.trailListItem .done, .trailListItem .done:hover {
+    text-decoration: line-through;
+    color: #a6a6a6;
+}
+
 .trailHeader {
     margin: 10px 0;
     height: 40px;
@@ -519,3 +524,4 @@ body {
     -webkit-box-shadow: inset 0 -2px #d6323b;
     box-shadow: inset 0 -2px #d6323b;
 }
+

@@ -73,4 +73,8 @@ angular.module('trailApp')
         });
       });
     };
+
+    $scope.markAsDone = function () {
+      TrailService.markAsDone($stateParams.trailId);
+    };
   }]);

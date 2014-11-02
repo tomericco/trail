@@ -9,7 +9,7 @@
     <div ng-show="$root.loggedInUser">
         <div id="trailList" class="container">
             <div class="trailListItem panel-body" ng-repeat="(id, trail) in trails">
-                <a class="trailListItemTitle" ng-href="#/trail/{{id}}">{{trail.name}}</a>
+                <a class="trailListItemTitle" ng-class="{'done': trail.status === 'DONE'}" ng-href="#/trail/{{id}}">{{trail.name}}</a>
                 <a class="goToTrailBtn glyphicon glyphicon-chevron-right" ng-href="#/trail/{{id}}"></a>
             </div>
 

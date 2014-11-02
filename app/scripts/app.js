@@ -22,4 +22,8 @@ angular.module('trailApp', [
     });
 
     $logProvider.debugEnabled(true);
-  }).constant('FIREBASE_URI', 'https://trail-app.firebaseio.com/');
+  }).constant('FIREBASE_URI', 'https://trail-app.firebaseio.com/')
+  .constant('TrailStatus', {
+    IN_PROGRESS: 'IN_PROGRESS',
+    DONE: 'DONE'
+  });

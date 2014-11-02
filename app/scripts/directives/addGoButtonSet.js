@@ -16,9 +16,11 @@ angular.module('trailApp')
           goToBtn = el.children('.goToTrailBtn');
 
         function addTrail() {
-          var name = scope.trailName.trim();
+          var name = scope.trailName;
 
-          scope.id = scope.addTrail(name);
+          if (!_.isEmpty(name)) {
+            scope.id = scope.addTrail(name);
+          }
         }
 
         addBtn.bind('mouseenter', function () {

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('trailApp')
-  .factory('TrailService', ['$q', '$firebase', 'FIREBASE_URI', function ($q, $firebase, FIREBASE_URI) {
+  .factory('TrailService', ['$q', '$firebase', 'FIREBASE_URI', 'TrailStatus', function ($q, $firebase, FIREBASE_URI, TrailStatus) {
     var trailsRef = new Firebase(FIREBASE_URI).child('trails');
     var self = {};
 
@@ -29,7 +29,7 @@ angular.module('trailApp')
     };
 
     self.markAsDone = function (trailId) {
-
+      trailsRef.child(trailId).child('status').set(TrailStatus.DONE);
     };
 
     self.deleteTrail = function (trailId) {
