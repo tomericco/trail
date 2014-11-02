@@ -44,9 +44,6 @@
 <div class="container" ng-hide="trail === null">
     <div class="feed">
         <div id="timeline">
-            <div class="timeLeft">
-                <span class="timestamp">{{trail.dueDate}}</span> left for finishing this task!
-            </div>
         </div>
 
         <div ng-repeat="brick in trail.bricks" ng-switch on="brick.type">
