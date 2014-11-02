@@ -26,7 +26,7 @@ angular.module('trailApp')
           el.toggleClass('markedOut');
 
           var participant = _.find(this.participants, { id: participant.id });
-          participant.attending = true;
+          participant.attending = !participant.attending;
         };
 
         scope.setAsAssignee = function (event, participant) {
