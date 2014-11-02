@@ -28,5 +28,19 @@ angular.module('trailApp')
       return deferred.promise;
     };
 
+    self.markAsDone = function (trailId) {
+
+    };
+
+    self.deleteTrail = function (trailId) {
+      var deferred = $q.defer();
+
+      trailsRef.child(trailId).remove(function () {
+        deferred.resolve();
+      });
+
+      return deferred.promise;
+    };
+
     return self;
   }]);

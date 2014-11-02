@@ -55,6 +55,14 @@ angular.module('trailApp')
       usersRef.child(userId + '/trails/' + trailId).set(role);
     };
 
+    self.removeTrailFromUser = function (userId, trailId) {
+      var deferred = $q.defer();
+
+      usersRef.child(userId + '/trails/' + trailId).remove();
+
+      return deferred.promise;
+    };
+
     function persistGoogleUser(user) {
       var id = usersRef.push();
       var userPersistedObj = {

@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('trailApp')
-  .controller('TrailCtrl', ['$rootScope', '$scope', '$state', '$stateParams', '$firebase', 'FIREBASE_URI', 'UserService',
-  function ($rootScope, $scope, $state, $stateParams, $firebase, FIREBASE_URI, UserService) {
+  .controller('TrailCtrl', ['$rootScope', '$scope', '$state', '$stateParams', '$firebase', 'FIREBASE_URI', 'UserService', 'TrailService',
+  function ($rootScope, $scope, $state, $stateParams, $firebase, FIREBASE_URI, UserService, TrailService) {
     var ref = new Firebase(FIREBASE_URI).child('trails').child($stateParams.trailId);
 
     if (ref.getAuth() === null) {
@@ -62,6 +62,15 @@ angular.module('trailApp')
 
           return contibsToAdd;
         }
+      });
+    };
+
+    $scope.deleteTrail = function () {
+      $state.go('home');
+      TrailService.deleteTrail($stateParams.trailId).then(function () {
+        UserService.removeTrailFromUser($rootScope.loggedInUser.id, $stateParams.trailId).then(function () {
+          //TODO Show delete notification
+        });
       });
     };
   }]);

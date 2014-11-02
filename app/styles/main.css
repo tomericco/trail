@@ -469,3 +469,12 @@ body {
     color: #333;
     text-decoration: none;
 }
+
+.trailHeader {
+    padding: 5px;
+}
+
+.trailHeader .trailBtn {
+    float: right;
+    margin-left: 10px;
+}
