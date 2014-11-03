@@ -17,6 +17,7 @@ angular.module('trailApp')
 
         var loggedInUserTrailsRef = usersRef.child(loggedInUser.id).child('trails');
 
+        // Handle add trail when other user adds me to his trail
         loggedInUserTrailsRef.on('child_added', function (snap) {
           var trailId = snap.name();
           TrailService.getTrailById(trailId).then(function (trail) {
@@ -99,5 +100,9 @@ angular.module('trailApp')
 
       $scope.emptyInput = function (event) {
         event.target.value = '';
+      };
+
+      $scope.isTrailOwner = function (trailId) {
+        return $rootScope.loggedInUser.trails[trailId] === 'OWNER';
       };
     }]);

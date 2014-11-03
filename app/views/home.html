@@ -1,15 +1,15 @@
 <div ng-class="{coverImg: $root.loggedInUser === null}">
     <div class="header">
         <span class="helper"></span>
-        <span class="trailLogo">Trail</span>
+        <a class="appLogo" href="#/home">Trail</a>
         <span class="loggedInUserBox">
             <img class="avatar" ng-src="{{$root.loggedInUser.avatar}}" alt=""/>
         </span>
     </div>
     <div ng-show="$root.loggedInUser">
         <div id="trailList" class="container">
-            <div class="trailListItem panel-body" ng-repeat="(id, trail) in trails">
-                <a class="trailListItemTitle" ng-class="{'done': trail.status === 'DONE'}" ng-href="#/trail/{{id}}">{{trail.name}}</a>
+            <div class="trailListItem panel-body" ng-class="{'done': trail.status === 'DONE'}" ng-repeat="(id, trail) in trails">
+                <a class="trailListItemTitle" ng-href="#/trail/{{id}}">{{trail.name}}</a>
                 <a class="goToTrailBtn glyphicon glyphicon-chevron-right" ng-href="#/trail/{{id}}"></a>
             </div>
 
@@ -30,6 +30,29 @@
                 <span class="icon"></span>
                 <span class="buttonText">Sign in with Google</span>
             </div>
+            <div class="landingPageTitle benefitsTitle h1">What's inside?</div>
+            <div class="benefits">
+                <div class="benefit col-md-4">
+                    <div class="benefitIcon">
+                        <img src="../images/benefit-realtime.png" alt=""/>
+                    </div>
+                    <div class="benefitTitle text-center">Realtime</div>
+                </div>
+                <div class="benefit col-md-4">
+                    <div class="benefitIcon">
+                        <img src="../images/benefit-collab.png" alt=""/>
+                    </div>
+                    <div class="benefitTitle text-center">Collaborative</div>
+                </div>
+                <div class="benefit col-md-4">
+                    <div class="benefitIcon">
+                        <img src="../images/benefit-google.png" alt=""/>
+                    </div>
+                    <div class="benefitTitle text-center">Integration with Google</div>
+                </div>
+            </div>
+            <div class="aboutTrail">Trail was built with love and passion especially for developers by a developer. It aims to make product development much more efficient, collaborative and trackable. I would love to get your feedback at
+                <a href="mailto:me@tomerg.com?subject=Feedback about Trail app">me@tomerg.com</a></div>
         </div>
     </div>
 </div>
