@@ -10,7 +10,22 @@ angular.module('trailApp')
       $scope.tryNowTitle = 'Try it now, it\'s free!';
       $scope.trails = {};
 
+      if (!AuthService.isUserLoggedIn()) {
+        $rootScope.loggedInUser = null;
+      } else {
+        var user = AuthService.getUserCookie();
+
+        UserService.getUserByEmail(user.google.email).then(function (persistedUser) {
+          onUserLoggedIn(persistedUser);
+        }, function onUserNotFound() {
+          var loggedInUser = UserService.persistUser(user);
+          onUserLoggedIn(loggedInUser);
+        });
+      }
+
       function onUserLoggedIn(loggedInUser) {
+        $rootScope.loggedInUser = loggedInUser;
+
         TrailService.getTrailsByUserId(loggedInUser.id).then(function (trails) {
           $scope.trails = trails || {};
         });
@@ -29,23 +44,11 @@ angular.module('trailApp')
           //TODO
           debugger;
         });
-
-        $rootScope.loggedInUser = loggedInUser;
-      }
-
-      if (!AuthService.isUserLoggedIn()) {
-        $rootScope.loggedInUser = null;
-      } else {
-        var user = AuthService.getUserCookie();
-
-        UserService.getUserByEmail(user.google.email).then(function (persistedUser) {
-          onUserLoggedIn(persistedUser);
-        });
       }
 
       $scope.loginWithGoogle = function () {
         AuthService.loginWithGoogle().then(function (loggedInUser) {
-          if (loggedInUser !== null) {
+          if (AuthService.isValidGoogleUser(loggedInUser)) {
             onUserLoggedIn(loggedInUser);
           }
         },

@@ -17,7 +17,7 @@ angular.module('trailApp')
         UserService.getUserByEmail(authData.google.email).then(function userExistsCallback(persistedUser) {
           return persistedUser;
         },function userNotExistsCallback() {
-          var persistedUser = UserService.persistUser(authData.google);
+          var persistedUser = UserService.persistUser(authData);
 
           return persistedUser;
         }).then(function (persistedUser) {
@@ -38,6 +38,10 @@ angular.module('trailApp')
       });
 
       return deferred.promise;
+    };
+
+    self.isValidGoogleUser = function (user) {
+        return user !== null && user.id;
     };
 
     self.isUserLoggedIn = function () {
