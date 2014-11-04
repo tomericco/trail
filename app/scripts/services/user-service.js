@@ -6,11 +6,6 @@ angular.module('trailApp')
     var self = {};
 
     self.getUserById = function (id) {
-//      var user = $firebase(usersRef.child(id)).$asObject();
-//
-//      return user.$loaded().then(function(data) {
-//        return data;
-//      });
       var deferred = $q.defer();
 
       usersRef.startAt(id)
@@ -67,9 +62,9 @@ angular.module('trailApp')
       var id = usersRef.push();
       var userPersistedObj = {
         id: id.name(),
-        avatar: user.thirdPartyUserData.picture,
-        name: user.thirdPartyUserData.name,
-        email: user.email,
+        avatar: user.google.cachedUserProfile.picture,
+        name: user.google.cachedUserProfile.name,
+        email: user.google.email,
         trails: []
       };
 
