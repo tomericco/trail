@@ -16,16 +16,19 @@
             <img class="avatar" ng-src="{{contributor.avatar}}" alt=""/>
         </div>
         <script type="text/ng-template" id="contrib-add.html">
-            <a class="userResultItem">
+            <a class="userResultItem" ng-show="match.model && match.model.avatar">
                 <img ng-src="{{match.model.avatar}}" width="24">
                 <span class="userName" bind-html-unsafe="match.label | typeaheadHighlight:query"></span>
             </a>
+            <div class="userNotFoundTitle" ng-show="match.model && match.model.isEmail">
+                User with email: <strong>{{match.model.email}}</strong> could not be found. Click to send an invitation.
+            </div>
         </script>
         <div class="searchUserContainer">
             <input ng-show="showUserSearchInput"
                    type="text"
                    typeahead="user.name for user in searchUser($viewValue)"
-                   typeahead-on-select="addContributor($item, $model, $label)"
+                   typeahead-on-select="handleSearchUserDropdownClick($item, $model, $label)"
                    typeahead-min-length="5"
                    ng-model="userSearchQuery"
                    placeholder="Type Email or username"

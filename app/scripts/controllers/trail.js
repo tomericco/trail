@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('trailApp')
-  .controller('TrailCtrl', ['$rootScope', '$scope', '$state', '$stateParams', '$firebase', 'FIREBASE_URI', 'UserService', 'TrailService',
-  function ($rootScope, $scope, $state, $stateParams, $firebase, FIREBASE_URI, UserService, TrailService) {
+  .controller('TrailCtrl', ['$rootScope', '$scope', '$state', '$stateParams', '$firebase', 'FIREBASE_URI', 'UserService', 'TrailService', 'UtilsService', 'MailService',
+  function ($rootScope, $scope, $state, $stateParams, $firebase, FIREBASE_URI, UserService, TrailService, UtilsService, MailService) {
     var ref = new Firebase(FIREBASE_URI).child('trails').child($stateParams.trailId);
 
     if (ref.getAuth() === null) {
@@ -37,6 +37,16 @@ angular.module('trailApp')
       });
     };
 
+    $scope.handleSearchUserDropdownClick = function (data) {
+      if (data.isEmail) {
+        MailService.sendEmailInvitation(data.email);
+      } else {
+        $scope.addContributor(data);
+      }
+
+      $scope.showUserSearchInput = false;
+    };
+
     $scope.addContributor = function (contributor) {
       $scope.userSearchQuery = '';
       $scope.showUserSearchInput = false; // Hide search user input
@@ -61,6 +71,15 @@ angular.module('trailApp')
           });
 
           return contibsToAdd;
+        }
+      }, function userNotFoundCallback() {
+        if (UtilsService.isValidEmail(val)) {
+          return [{
+            isEmail: true,
+            email: val
+          }];
+        } else {
+          return [];
         }
       });
     };

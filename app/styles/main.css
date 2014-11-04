@@ -568,3 +568,7 @@ body {
     color: #D2D2D2;
     margin: 50px auto;
 }
+
+.userNotFoundTitle {
+    padding: 5px;
+}
