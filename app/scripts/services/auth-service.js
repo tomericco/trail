@@ -10,6 +10,12 @@ angular.module('trailApp')
 
     function handleLoginResponse(error, authData) {
       if (error) {
+        if (error.code === "TRANSPORT_UNAVAILABLE") {
+            // fall-back to browser redirects, and pick up the session
+            // automatically when we come back to the origin page
+            rootRef.authWithOAuthRedirect("google", handleLoginResponse);
+        }
+
         // an error occurred while attempting login
         deferred.reject(error);
       } else if (authData.google) {
