@@ -19,6 +19,11 @@ angular.module('trailApp', [
     url: '/home',
     templateUrl: 'views/home.html',
     controller: 'MainCtrl'
+  }).state('root', {
+      url: '/',
+      controller: function ($state) {
+          $state.go('home');
+      }
   });
 
   $logProvider.debugEnabled(true);
