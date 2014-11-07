@@ -18,7 +18,7 @@ angular.module('trailApp', [
   }).state('home', {
     url: '/home',
     templateUrl: 'views/home.html',
-    controller: 'MainCtrl'
+    controller: 'HomeCtrl'
   }).state('root', {
       url: '/',
       controller: function ($state) {

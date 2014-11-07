@@ -20,13 +20,7 @@ angular.module('trailApp')
         deferred.reject(error);
       } else if (authData.google) {
         // user authenticated with Firebase
-        UserService.getUserByEmail(authData.google.email).then(function userExistsCallback(persistedUser) {
-          return persistedUser;
-        },function userNotExistsCallback() {
-          var persistedUser = UserService.persistUser(authData);
-
-          return persistedUser;
-        }).then(function (persistedUser) {
+        UserService.getUserByEmailAndPersistIfNeeded(authData.google.email, authData).then(function (persistedUser) {
           // Clone persisted object to remove 3 way binding for this variable
           angular.extend(loggedInUser, persistedUser);
           deferred.resolve(loggedInUser);

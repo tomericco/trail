@@ -1,14 +1,9 @@
 'use strict';
 
 angular.module('trailApp')
-  .controller('TrailCtrl', ['$rootScope', '$scope', '$state', '$stateParams', '$firebase', 'FIREBASE_URI', 'UserService', 'TrailService',
-  function ($rootScope, $scope, $state, $stateParams, $firebase, FIREBASE_URI, UserService, TrailService) {
+  .controller('TrailCtrl', ['$rootScope', '$scope', '$state', '$stateParams', '$firebase', 'FIREBASE_URI', 'UserService', 'TrailService', 'AuthService',
+  function ($rootScope, $scope, $state, $stateParams, $firebase, FIREBASE_URI, UserService, TrailService, AuthService) {
     var ref = new Firebase(FIREBASE_URI).child('trails').child($stateParams.trailId);
-
-    if (ref.getAuth() === null) {
-      $state.go('home');
-    }
-
     var sync = $firebase(ref);
     var record = sync.$asObject();
 
