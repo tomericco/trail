@@ -46,6 +46,20 @@ angular.module('trailApp')
       return deferred.promise;
     };
 
+    self.getUserByEmailAndPersistIfNeeded = function (email, user) {
+      var deferred = $q.defer();
+
+      this.getUserByEmail(email).then(function onUserFound(persistedUser) {
+        return persistedUser;
+      }, function onUserNotFound() {
+        return this.persistUser(user);
+      }).then(function (persistedUser) {
+        deferred.resolve(persistedUser);
+      });
+
+      return deferred.promise;
+    };
+
     self.addTrailToUser = function (userId, trailId, role) {
       usersRef.child(userId + '/trails/' + trailId).set(role);
     };
