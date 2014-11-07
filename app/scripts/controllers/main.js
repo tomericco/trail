@@ -43,18 +43,6 @@ angular.module('trailApp')
         loggedInUserTrailsRef.on('child_removed', function (snap) {
           //TODO
           debugger;
-        });
-      }
-
-      $scope.loginWithGoogle = function () {
-        AuthService.loginWithGoogle().then(function (loggedInUser) {
-          if (AuthService.isValidGoogleUser(loggedInUser)) {
-            onUserLoggedIn(loggedInUser);
-          }
-        },
-        function onLoginError(error) {
-          $rootScope.loggedInUser = null;
-
           //TODO Show login error
         });
       };
