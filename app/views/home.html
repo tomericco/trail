@@ -13,7 +13,7 @@
                 <a class="goToTrailBtn glyphicon glyphicon-chevron-right" ng-href="#/trail/{{id}}"></a>
             </div>
 
-            <div class="panel-body">
+            <div class="addTrailContainer panel-body">
                 <input type="text" class="addTrailInput" ng-model="trailName" ui-event="{blur:'emptyInput($event)'}" ui-keypress="{13:'addAndGoToTrail(trailName)'}" />
                 <add-go-button-set></add-go-button-set>
             </div>

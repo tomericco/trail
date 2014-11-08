@@ -563,3 +563,7 @@ body {
     color: #D2D2D2;
     margin: 50px auto;
 }
+
+.addTrailContainer.animated.shake {
+    -webkit-animation-duration: .7s;
+}
