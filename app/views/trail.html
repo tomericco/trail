@@ -42,10 +42,7 @@
 </div>
 
 <div class="container" ng-hide="trail === null">
-    <div class="trailHeader">
-        <button class="trailBtn doneBtn" ng-click="markAsDone()">Done</button>
-        <button class="trailBtn deleteBtn" ng-click="deleteTrail()">Delete</button>
-    </div>
+    <div class="trailHeader"></div>
     <div class="feed">
         <div ng-repeat="brick in trail.bricks" ng-switch on="brick.type">
             <div code-brick ng-switch-when="code"></div>
