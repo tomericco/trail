@@ -91,9 +91,13 @@ angular.module('trailApp')
       };
 
       $scope.addAndGoToTrail = function (name) {
-        var trailId = $scope.addTrail(name);
+        if (!_.isEmpty(name)) {
+          var trailId = $scope.addTrail(name);
 
-        $scope.goToTrail(trailId);
+          $scope.goToTrail(trailId);
+        } else {
+          $scope.$broadcast('shake');
+        }
       };
 
       $scope.deleteTrail = function (id) {

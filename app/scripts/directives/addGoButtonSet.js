@@ -52,6 +52,10 @@ angular.module('trailApp')
             UtilsService.shakeElement(el.parent());
           }
         });
+
+        scope.$on('shake', function () {
+          UtilsService.shakeElement(el.parent());
+        });
       }
     };
   }]);
