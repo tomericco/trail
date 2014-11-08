@@ -52,7 +52,7 @@ angular.module('trailApp')
       this.getUserByEmail(email).then(function onUserFound(persistedUser) {
         return persistedUser;
       }, function onUserNotFound() {
-        return this.persistUser(user);
+        return self.persistUser(user);
       }).then(function (persistedUser) {
         deferred.resolve(persistedUser);
       });
