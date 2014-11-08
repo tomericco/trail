@@ -23,13 +23,20 @@ angular.module('trailApp')
     $scope.addBrick = function (brick) {
       var now = new Date().getTime();
 
-      $scope.trail.bricks = $scope.trail.bricks || [];
-      $scope.trail.bricks.push({
-        type: brick.type,
-        content: brick.content,
-        created: now,
-        author: $rootScope.loggedInUser.id
-      });
+      if (brick && !_.isEmpty(brick.content)) {
+        $scope.trail.bricks = $scope.trail.bricks || [];
+        $scope.trail.bricks.push({
+          type: brick.type,
+          content: brick.content,
+          created: now,
+          author: $rootScope.loggedInUser.id
+        });
+
+        return true;
+      } else {
+        return false;
+      }
+
     };
 
     $scope.addContributor = function (contributor) {

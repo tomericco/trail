@@ -20,6 +20,10 @@ angular.module('trailApp')
 
           if (!_.isEmpty(name)) {
             scope.id = scope.addTrail(name);
+
+            return true;
+          } else {
+            return false;
           }
         }
 
@@ -36,8 +40,11 @@ angular.module('trailApp')
         });
 
         goToBtn.bind('click', function () {
-          addTrail();
-          scope.goToTrail(scope.id);
+          var trailAdded = addTrail();
+
+          if (trailAdded) {
+            scope.goToTrail(scope.id);
+          }
         });
       }
     };
