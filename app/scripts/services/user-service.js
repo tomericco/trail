@@ -79,6 +79,7 @@ angular.module('trailApp')
         avatar: user.google.cachedUserProfile.picture,
         name: user.google.cachedUserProfile.name,
         email: user.google.email,
+        providerInfo: user.google,
         trails: []
       };
 
