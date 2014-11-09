@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('trailApp')
-  .controller('TrailCtrl', ['$rootScope', '$scope', '$state', '$stateParams', '$firebase', 'FIREBASE_URI', 'UserService', 'TrailService', 'AuthService',
-  function ($rootScope, $scope, $state, $stateParams, $firebase, FIREBASE_URI, UserService, TrailService, AuthService) {
+  .controller('TrailCtrl', ['$rootScope', '$scope', '$state', '$stateParams', '$firebase', 'FIREBASE_URI', 'UserService', 'TrailService', 'TrailStatus',
+  function ($rootScope, $scope, $state, $stateParams, $firebase, FIREBASE_URI, UserService, TrailService, TrailStatus) {
     var ref = new Firebase(FIREBASE_URI).child('trails').child($stateParams.trailId);
     var sync = $firebase(ref);
     var record = sync.$asObject();
@@ -77,6 +77,10 @@ angular.module('trailApp')
     };
 
     $scope.markAsDone = function () {
-      TrailService.markAsDone($stateParams.trailId);
+      TrailService.setStatus($stateParams.trailId, TrailStatus.DONE);
+    };
+
+    $scope.markAsInProgress = function () {
+        TrailService.setStatus($stateParams.trailId, TrailStatus.IN_PROGRESS);
     };
   }]);
