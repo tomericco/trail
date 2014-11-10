@@ -373,6 +373,7 @@ body {
 }
 
 .searchUserContainer {
+    width: 230px;
     height: 40px;
     cursor: pointer;
 }
