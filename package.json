@@ -2,6 +2,9 @@
   "name": "trail",
   "version": "0.0.0",
   "dependencies": {
+    "body-parser": "^1.9.2",
+    "depd": "^1.0.0",
+    "express": "^4.10.2",
     "js-beautify": "~1.5.1"
   },
   "devDependencies": {
@@ -36,9 +39,11 @@
     "karma-ng-html2js-preprocessor": "~0.1.0"
   },
   "engines": {
-    "node": ">=0.8.0"
+    "node": "0.10.x"
   },
   "scripts": {
+    "start": "node app.js",
     "test": "grunt test"
-  }
+  },
+  "author": "tomericco"
 }

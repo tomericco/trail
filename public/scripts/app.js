@@ -26,6 +26,8 @@ angular.module('trailApp', [
       }
   });
 
+  $urlRouterProvider.when('', '/#/home');
+
   $logProvider.debugEnabled(true);
 }).provider('FIREBASE_URI', [function () {
   this.$get = function() {
