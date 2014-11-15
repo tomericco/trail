@@ -1,6 +1,6 @@
 {
   "firebase": "trail-app",
-  "public": "dist",
+  "public": "public/dist",
   "ignore": [
     "firebase.json",
     "**/.*",
