@@ -11,7 +11,10 @@ app.use('/', express.static(path.join(__dirname, 'public')));
 // Routes
 app.get('/mail', mail.main);
 
-var server = app.listen(3000, function () {
+app.set('port', (process.env.PORT || 3000));
+
+var port = app.get('port');
+var server = app.listen(port, function () {
   var host = server.address().address;
   var port = server.address().port;
 
