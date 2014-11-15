@@ -5,7 +5,8 @@
     "body-parser": "^1.9.2",
     "depd": "^1.0.0",
     "express": "^4.10.2",
-    "js-beautify": "~1.5.1"
+    "js-beautify": "~1.5.1",
+    "bower": "*"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
@@ -39,11 +40,11 @@
     "karma-ng-html2js-preprocessor": "~0.1.0"
   },
   "engines": {
-    "node": "0.10.x"
+    "node": ">=0.10.0"
   },
   "scripts": {
-    "start": "node app.js",
-    "test": "grunt test"
+    "test": "grunt test",
+    "postinstall": "./node_modules/bower/bin/bower install"
   },
   "author": "tomericco"
 }
