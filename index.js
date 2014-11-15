@@ -4,7 +4,7 @@ var mail = require('./routes/mail');
 var bodyParser = require('body-parser');
 
 var app = express();
-var clientDir = os.environ.TRAIL_ENV === 'production' ? 'public/dist' : 'public';
+var clientDir = 'public';//os.environ.TRAIL_ENV === 'production' ? 'public/dist' : 'public';
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
