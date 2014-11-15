@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('trailApp')
-  .directive('addGoButtonSet', function () {
+  .directive('addGoButtonSet', ['UtilsService', function (UtilsService) {
     return {
       scope: true,
       replace: 'true',
@@ -20,6 +20,10 @@ angular.module('trailApp')
 
           if (!_.isEmpty(name)) {
             scope.id = scope.addTrail(name);
+
+            return true;
+          } else {
+            return false;
           }
         }
 
@@ -32,13 +36,26 @@ angular.module('trailApp')
         });
 
         addBtn.bind('click', function () {
-          addTrail();
+          var trailAdded = addTrail();
+
+          if (!trailAdded) {
+            UtilsService.shakeElement(el.parent());
+          }
         });
 
         goToBtn.bind('click', function () {
-          addTrail();
-          scope.goToTrail(scope.id);
+          var trailAdded = addTrail();
+
+          if (trailAdded) {
+            scope.goToTrail(scope.id);
+          } else {
+            UtilsService.shakeElement(el.parent());
+          }
+        });
+
+        scope.$on('shake', function () {
+          UtilsService.shakeElement(el.parent());
         });
       }
     };
-  });
+  }]);

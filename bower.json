@@ -20,5 +20,9 @@
   "devDependencies": {
     "angular-mocks": "1.2.6",
     "angular-scenario": "1.2.6"
+  },
+  "appPath": "public",
+  "resolutions": {
+    "firebase": "1.1.2"
   }
 }

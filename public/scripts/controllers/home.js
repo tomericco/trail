@@ -1,16 +1,19 @@
 'use strict';
 
 angular.module('trailApp')
-  .controller('MainCtrl', ['$rootScope', '$scope', 'FIREBASE_URI', 'UserService', 'TrailService', 'AuthService',
+  .controller('HomeCtrl', ['$rootScope', '$scope', 'FIREBASE_URI', 'UserService', 'TrailService', 'AuthService',
     function ($rootScope, $scope, FIREBASE_URI, UserService, TrailService, AuthService) {
       var trailsRef = new Firebase(FIREBASE_URI).child('trails');
       var usersRef = new Firebase(FIREBASE_URI).child('users');
+      var unregisterOnUserLoggedIn;
 
       $scope.mainTitle = 'Every product development is a journey.\nTrail helps you being collaborative and efficient.';
       $scope.tryNowTitle = 'Try it now, it\'s free!';
       $scope.trails = {};
 
-      function onUserLoggedIn(loggedInUser) {
+      function loadTrailsList() {
+        var loggedInUser = $rootScope.loggedInUser;
+
         TrailService.getTrailsByUserId(loggedInUser.id).then(function (trails) {
           $scope.trails = trails || {};
         });
@@ -30,30 +33,29 @@ angular.module('trailApp')
           debugger;
         });
 
-        $rootScope.loggedInUser = loggedInUser;
+        unregisterOnUserLoggedIn && unregisterOnUserLoggedIn();
       }
 
-      if (!AuthService.isUserLoggedIn()) {
-        $rootScope.loggedInUser = null;
+      if ($rootScope.loggedInUser) {
+        loadTrailsList();
       } else {
-        var user = AuthService.getUserCookie();
-
-        UserService.getUserByEmail(user.google.email).then(function (persistedUser) {
-          onUserLoggedIn(persistedUser);
-        });
+        unregisterOnUserLoggedIn = $scope.$on('onUserLoggedIn', loadTrailsList);
       }
 
       $scope.loginWithGoogle = function () {
         AuthService.loginWithGoogle().then(function (loggedInUser) {
-          if (loggedInUser !== null) {
-            onUserLoggedIn(loggedInUser);
-          }
-        },
-        function onLoginError(error) {
-          $rootScope.loggedInUser = null;
+            if (AuthService.isValidGoogleUser(loggedInUser)) {
+              $rootScope.loggedInUser = loggedInUser;
+              loadTrailsList();
+            } else {
+              console.error('Invalid Google user', loggedInUser);
+            }
+          },
+          function onLoginError(error) {
+            $rootScope.loggedInUser = null;
 
-          //TODO Show login error
-        });
+            //TODO Show login error
+          });
       };
 
       $scope.addTrail = function (name) {
@@ -89,9 +91,13 @@ angular.module('trailApp')
       };
 
       $scope.addAndGoToTrail = function (name) {
-        var trailId = $scope.addTrail(name);
+        if (!_.isEmpty(name)) {
+          var trailId = $scope.addTrail(name);
 
-        $scope.goToTrail(trailId);
+          $scope.goToTrail(trailId);
+        } else {
+          $scope.$broadcast('shake');
+        }
       };
 
       $scope.deleteTrail = function (id) {

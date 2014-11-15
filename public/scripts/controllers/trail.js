@@ -4,11 +4,6 @@ angular.module('trailApp')
   .controller('TrailCtrl', ['$rootScope', '$scope', '$state', '$stateParams', '$firebase', 'FIREBASE_URI', 'UserService', 'TrailService', 'UtilsService', 'MailService',
   function ($rootScope, $scope, $state, $stateParams, $firebase, FIREBASE_URI, UserService, TrailService, UtilsService, MailService) {
     var ref = new Firebase(FIREBASE_URI).child('trails').child($stateParams.trailId);
-
-    if (ref.getAuth() === null) {
-      $state.go('home');
-    }
-
     var sync = $firebase(ref);
     var record = sync.$asObject();
 
@@ -28,13 +23,20 @@ angular.module('trailApp')
     $scope.addBrick = function (brick) {
       var now = new Date().getTime();
 
-      $scope.trail.bricks = $scope.trail.bricks || [];
-      $scope.trail.bricks.push({
-        type: brick.type,
-        content: brick.content,
-        created: now,
-        author: $rootScope.loggedInUser.id
-      });
+      if (brick && !_.isEmpty(brick.content)) {
+        $scope.trail.bricks = $scope.trail.bricks || [];
+        $scope.trail.bricks.push({
+          type: brick.type,
+          content: brick.content,
+          created: now,
+          author: $rootScope.loggedInUser.id
+        });
+
+        return true;
+      } else {
+        return false;
+      }
+
     };
 
     $scope.handleSearchUserDropdownClick = function (data) {
@@ -94,6 +96,10 @@ angular.module('trailApp')
     };
 
     $scope.markAsDone = function () {
-      TrailService.markAsDone($stateParams.trailId);
+      TrailService.setStatus($stateParams.trailId, TrailStatus.DONE);
+    };
+
+    $scope.markAsInProgress = function () {
+        TrailService.setStatus($stateParams.trailId, TrailStatus.IN_PROGRESS);
     };
   }]);

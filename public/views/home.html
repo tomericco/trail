@@ -6,20 +6,26 @@
             <img class="avatar" ng-src="{{$root.loggedInUser.avatar}}" alt=""/>
         </span>
     </div>
-    <div ng-show="$root.loggedInUser">
+    <div ng-if="$root.loggedInUser">
         <div id="trailList" class="container">
-            <div class="trailListItem panel-body" ng-class="{'done': trail.status === 'DONE'}" ng-repeat="(id, trail) in trails">
+            <!-- List all in progress trails -->
+            <div class="trailListItem panel-body" ng-repeat="(id, trail) in trails" ng-if="trail.status !== 'DONE'">
+                <a class="trailListItemTitle" ng-href="#/trail/{{id}}">{{trail.name}}</a>
+                <a class="goToTrailBtn glyphicon glyphicon-chevron-right" ng-href="#/trail/{{id}}"></a>
+            </div>
+            <!-- List all done trails -->
+            <div class="trailListItem panel-body done" ng-repeat="(id, trail) in trails" ng-if="trail.status === 'DONE'">
                 <a class="trailListItemTitle" ng-href="#/trail/{{id}}">{{trail.name}}</a>
                 <a class="goToTrailBtn glyphicon glyphicon-chevron-right" ng-href="#/trail/{{id}}"></a>
             </div>
 
-            <div class="panel-body">
+            <div class="addTrailContainer panel-body">
                 <input type="text" class="addTrailInput" ng-model="trailName" ui-event="{blur:'emptyInput($event)'}" ui-keypress="{13:'addAndGoToTrail(trailName)'}" />
                 <add-go-button-set></add-go-button-set>
             </div>
         </div>
     </div>
-    <div ng-show="$root.loggedInUser === null">
+    <div ng-if="$root.loggedInUser === null">
         <div class="cover"></div>
         <div class="text-center loginContainer">
             <div class="landingPageTitle mainTitle">{{mainTitle}}</div>

@@ -6,11 +6,6 @@ angular.module('trailApp')
     var self = {};
 
     self.getUserById = function (id) {
-//      var user = $firebase(usersRef.child(id)).$asObject();
-//
-//      return user.$loaded().then(function(data) {
-//        return data;
-//      });
       var deferred = $q.defer();
 
       usersRef.startAt(id)
@@ -51,6 +46,20 @@ angular.module('trailApp')
       return deferred.promise;
     };
 
+    self.getUserByEmailAndPersistIfNeeded = function (email, user) {
+      var deferred = $q.defer();
+
+      this.getUserByEmail(email).then(function onUserFound(persistedUser) {
+        return persistedUser;
+      }, function onUserNotFound() {
+        return self.persistUser(user);
+      }).then(function (persistedUser) {
+        deferred.resolve(persistedUser);
+      });
+
+      return deferred.promise;
+    };
+
     self.addTrailToUser = function (userId, trailId, role) {
       usersRef.child(userId + '/trails/' + trailId).set(role);
     };
@@ -67,9 +76,10 @@ angular.module('trailApp')
       var id = usersRef.push();
       var userPersistedObj = {
         id: id.name(),
-        avatar: user.thirdPartyUserData.picture,
-        name: user.thirdPartyUserData.name,
-        email: user.email,
+        avatar: user.google.cachedUserProfile.picture,
+        name: user.google.cachedUserProfile.name,
+        email: user.google.email,
+        providerInfo: user.google,
         trails: []
       };
 

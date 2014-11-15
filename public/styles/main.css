@@ -252,6 +252,7 @@ body {
 
 .reqLabel {
     vertical-align: middle;
+    margin: 5px;
 }
 
 .meetingTimePicker {
@@ -262,12 +263,6 @@ body {
 .input-group {
     display: inline-table;
     vertical-align: middle;
-
-    .input-group-addon,
-    .input-group-btn,
-    .form-control {
-        width: auto !important;
-    }
 }
 
 .meetingParticipant {
@@ -378,6 +373,7 @@ body {
 }
 
 .searchUserContainer {
+    width: 230px;
     height: 40px;
     cursor: pointer;
 }
@@ -567,6 +563,53 @@ body {
 .aboutTrail {
     color: #D2D2D2;
     margin: 50px auto;
+}
+
+.addTrailContainer.animated.shake {
+    -webkit-animation-duration: .7s;
+}
+
+.trailActionButton {
+    padding: 3px;
+    vertical-align: middle;
+    opacity: 0.6;
+    cursor: pointer;
+}
+
+.trailActionButton:hover {
+    opacity: 1;
+}
+
+.trailActionsContainer {
+    margin-left: 15px;
+    display: inline-block;
+}
+
+.trailActionsContainer .glyphicon.glyphicon-remove:hover {
+    color: #e00000;
+}
+
+.trailActionsContainer .glyphicon.glyphicon-ok:hover {
+    color: #00bb00;
+}
+
+.trailActionsContainer .glyphicon.glyphicon-repeat:hover {
+    color: #D5D5D5;
+}
+
+.glyphicon.glyphicon-ok {
+    top: -1px;
+}
+
+.glyphicon.glyphicon-repeat {
+    font-size: 16px;
+    font-weight: bold;
+    top: 2px;
+}
+
+.trailTitle.done {
+    text-decoration: line-through;
+    color: #d9d9d9;
 }
 
 .userNotFoundTitle {
