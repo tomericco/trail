@@ -44,7 +44,7 @@
   },
   "scripts": {
     "test": "grunt test",
-    "postinstall": "./node_modules/bower/bin/bower install"
+    "postinstall": "grunt build && ./node_modules/bower/bin/bower install"
   },
   "author": "tomericco"
 }
