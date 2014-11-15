@@ -147,21 +147,15 @@ module.exports = function (grunt) {
       }
     },
 
-
-
-
-
     // Renames files for browser caching purposes
-    rev: {
+    filerev: {
       dist: {
-        files: {
-          src: [
-            '<%= yeoman.dist %>/scripts/{,*/}*.js',
-            '<%= yeoman.dist %>/styles/{,*/}*.css',
-//            '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-            '<%= yeoman.dist %>/styles/fonts/*'
-          ]
-        }
+        src: [
+          '<%= yeoman.dist %>/scripts/{,*/}*.js',
+          '<%= yeoman.dist %>/styles/{,*/}*.css',
+//          '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+          '<%= yeoman.dist %>/styles/fonts/*'
+        ]
       }
     },
 
@@ -195,16 +189,6 @@ module.exports = function (grunt) {
         }]
       }
     },
-    svgmin: {
-      dist: {
-        files: [{
-          expand: true,
-          cwd: '<%= yeoman.app %>/images',
-          src: '{,*/}*.svg',
-          dest: '<%= yeoman.dist %>/images'
-        }]
-      }
-    },
     htmlmin: {
       dist: {
         options: {
@@ -222,14 +206,14 @@ module.exports = function (grunt) {
       }
     },
 
-    // Allow the use of non-minsafe AngularJS files. Automatically makes it
-    // minsafe compatible so Uglify does not destroy the ng references
-    ngmin: {
+    // ng-annotate tries to make the code safe for minification automatically
+    // by using the Angular long form for dependency injection.
+    ngAnnotate: {
       dist: {
         files: [{
           expand: true,
           cwd: '.tmp/concat/scripts',
-          src: '*.js',
+          src: ['*.js', '!oldieshim.js'],
           dest: '.tmp/concat/scripts'
         }]
       }
@@ -285,8 +269,7 @@ module.exports = function (grunt) {
       ],
       dist: [
         'copy:styles',
-        'imagemin',
-        'svgmin'
+        'imagemin'
       ]
     },
 
@@ -361,12 +344,12 @@ module.exports = function (grunt) {
     'concurrent:dist',
     'autoprefixer',
     'concat',
-    'ngmin',
+    'ngAnnotate',
     'copy:dist',
     'cdnify',
     'cssmin',
     'uglify',
-    'rev',
+    'filerev',
     'usemin',
     'htmlmin'
   ]);
