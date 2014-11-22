@@ -10,7 +10,7 @@
     <div class="title">
         <a class="backBtn glyphicon glyphicon-chevron-left" ng-href="#home"></a>
         <span class="trailTitle" ng-class="{'done': trail.status === 'DONE'}">{{trail.name}}</span>
-        <span class="trailActionsContainer">
+        <span class="trailActionsContainer" ng-if="isLoggedInUserTrailOwner()">
             <span class="trailActionButton glyphicon glyphicon-remove" ng-if="trail" ng-click="deleteTrail()"></span>
             <span class="trailActionButton glyphicon glyphicon-ok" ng-if="trail && trail.status !== 'DONE'" ng-click="markAsDone()"></span>
             <span class="trailActionButton glyphicon glyphicon-repeat" ng-if="trail && trail.status === 'DONE'" ng-click="markAsInProgress()"></span>
