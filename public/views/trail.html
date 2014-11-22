@@ -21,12 +21,15 @@
             <img class="avatar" ng-src="{{contributor.avatar}}" alt=""/>
         </div>
         <script type="text/ng-template" id="contrib-add.html">
-            <a class="userResultItem" ng-show="match.model && match.model.avatar">
+            <a class="userResultItem" ng-if="match.model && match.model.avatar">
                 <img ng-src="{{match.model.avatar}}" width="24">
                 <span class="userName" bind-html-unsafe="match.label | typeaheadHighlight:query"></span>
             </a>
-            <div class="userNotFoundTitle" ng-show="match.model && match.model.isEmail">
+            <div class="userNotFoundTitle" ng-if="match.model && match.model.isEmail">
                 User with email: <strong>{{match.model.email}}</strong> could not be found. Click to send an invitation.
+            </div>
+            <div class="userNotFoundTitle" ng-if="match.model && match.model.isMessage">
+                Invitation already send to: <strong>{{match.model.email}}</strong> for this trail.
             </div>
         </script>
         <div class="searchUserContainer">

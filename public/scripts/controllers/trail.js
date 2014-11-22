@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('trailApp')
-  .controller('TrailCtrl', ['$rootScope', '$scope', '$state', '$stateParams', '$firebase', 'TrailStatus', 'FIREBASE_URI', 'UserService', 'TrailService', 'UtilsService', 'MailService',
-  function ($rootScope, $scope, $state, $stateParams, $firebase, TrailStatus, FIREBASE_URI, UserService, TrailService, UtilsService, MailService) {
+  .controller('TrailCtrl', ['$rootScope', '$scope', '$state', '$stateParams', '$firebase', '$q', 'TrailStatus', 'FIREBASE_URI', 'UserService', 'TrailService', 'UtilsService', 'MailService',
+  function ($rootScope, $scope, $state, $stateParams, $firebase, $q, TrailStatus, FIREBASE_URI, UserService, TrailService, UtilsService, MailService) {
     var ref = new Firebase(FIREBASE_URI).child('trails').child($stateParams.trailId);
     var sync = $firebase(ref);
     var record = sync.$asObject();
@@ -40,6 +40,11 @@ angular.module('trailApp')
     };
 
     $scope.handleSearchUserDropdownClick = function (data) {
+      // Message is not clickable
+      if (data.isMessage) {
+        return;
+      }
+
       if (data.isEmail) {
         MailService.sendEmailInvitation(data.email, {
           senderAddress: $scope.loggedInUser.email,
@@ -73,25 +78,45 @@ angular.module('trailApp')
     };
 
     $scope.searchUser = function (val) { //TODO Move implementation to a service
-      return UserService.getUserByEmail(val).then(function (user) {
+      var deferred = $q.defer();
+
+      UserService.getUserByEmail(val).then(function (user) {
         if (user) {
           var contibsToAdd = _.filter([user], function (user) {
             var currentContribEmails = _.pluck($scope.trail.contributors, 'email');
             return !_.contains(user.email, currentContribEmails)
           });
 
-          return contibsToAdd;
+          deferred.resolve(contibsToAdd);
         }
       }, function userNotFoundCallback() {
-        if (UtilsService.isValidEmail(val)) {
-          return [{
+
+        function onInvitationNotFound() {
+          deferred.resolve([{
             isEmail: true,
             email: val
-          }];
-        } else {
-          return [];
+          }]);
+        }
+
+        if (UtilsService.isValidEmail(val)) {
+          UserService.getUserInvitations(val).then(function onInvitationFound(invitations) {
+            var isInvitationExistForCurrentTrail = _(invitations || [])
+              .pluck('trailId')
+              .contains($scope.trail.$id);
+
+            if (invitations && isInvitationExistForCurrentTrail) {
+                deferred.resolve([{
+                  isMessage: true,
+                  email: val
+                }]);
+            } else {
+              onInvitationNotFound();
+            }
+          }, onInvitationNotFound);
         }
       });
+
+      return deferred.promise;
     };
 
     $scope.deleteTrail = function () {
