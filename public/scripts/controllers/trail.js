@@ -135,4 +135,8 @@ angular.module('trailApp')
     $scope.markAsInProgress = function () {
       TrailService.setStatus($stateParams.trailId, TrailStatus.IN_PROGRESS);
     };
+
+    $scope.isLoggedInUserTrailOwner = function () {
+      return $scope.trail && $scope.trail.owner === $rootScope.loggedInUser.id;
+    };
   }]);
