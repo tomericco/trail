@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('trailApp')
-  .controller('HomeCtrl', ['$rootScope', '$scope', 'FIREBASE_URI', 'UserService', 'TrailService', 'AuthService',
-    function ($rootScope, $scope, FIREBASE_URI, UserService, TrailService, AuthService) {
+  .controller('HomeCtrl', ['$rootScope', '$scope', '$window', 'FIREBASE_URI', 'UserService', 'TrailService', 'AuthService', 'UtilsService',
+    function ($rootScope, $scope, $window, FIREBASE_URI, UserService, TrailService, AuthService, UtilsService) {
       var trailsRef = new Firebase(FIREBASE_URI).child('trails');
       var usersRef = new Firebase(FIREBASE_URI).child('users');
       var unregisterOnUserLoggedIn;
@@ -11,16 +11,23 @@ angular.module('trailApp')
       $scope.tryNowTitle = 'Try it now, it\'s free!';
       $scope.trails = {};
 
+      if ($rootScope.loggedInUser) {
+        loadTrailsList();
+      } else {
+        unregisterOnUserLoggedIn = $scope.$on('onUserLoggedIn', loadTrailsList);
+      }
+
       function loadTrailsList() {
         var loggedInUser = $rootScope.loggedInUser;
 
+        // Get trails the user own
         TrailService.getTrailsByUserId(loggedInUser.id).then(function (trails) {
-          $scope.trails = trails || {};
+          angular.extend($scope.trails, trails);
         });
 
         var loggedInUserTrailsRef = usersRef.child(loggedInUser.id).child('trails');
 
-        // Handle add trail when other user adds me to his trail
+        // Handle add trail when other user adds the user to his trail
         loggedInUserTrailsRef.on('child_added', function (snap) {
           var trailId = snap.name();
           TrailService.getTrailById(trailId).then(function (trail) {
@@ -28,25 +35,21 @@ angular.module('trailApp')
           });
         });
 
-        loggedInUserTrailsRef.on('child_removed', function (snap) {
-          //TODO
-          debugger;
-        });
-
         unregisterOnUserLoggedIn && unregisterOnUserLoggedIn();
-      }
-
-      if ($rootScope.loggedInUser) {
-        loadTrailsList();
-      } else {
-        unregisterOnUserLoggedIn = $scope.$on('onUserLoggedIn', loadTrailsList);
       }
 
       $scope.loginWithGoogle = function () {
         AuthService.loginWithGoogle().then(function (loggedInUser) {
             if (AuthService.isValidGoogleUser(loggedInUser)) {
               $rootScope.loggedInUser = loggedInUser;
-              loadTrailsList();
+
+              //TODO Move redirect code to auth service somehow
+              var redirectUrl = UtilsService.getQueryParamValue('redirect');
+              if (redirectUrl && UtilsService.isTrailUrl(redirectUrl)) {
+                  $window.location.href = redirectUrl;
+              } else {
+                  loadTrailsList();
+              }
             } else {
               console.error('Invalid Google user', loggedInUser);
             }
@@ -68,7 +71,6 @@ angular.module('trailApp')
           created: currentTime,
           updated: currentTime
         };
-
         var newTrailRef = trailsRef.push();
         var newTrailId = newTrailRef.name();
 

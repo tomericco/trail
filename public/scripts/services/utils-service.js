@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('trailApp')
-  .factory('UtilsService', function () {
+  .factory('UtilsService', ['$window', '$location', function ($window, $location) {
     var self = {};
 
     self.getTimeLeftAsString = function (date) {
@@ -14,5 +14,32 @@ angular.module('trailApp')
       return re.test(email);
     };
 
+    self.getInvitationUrl = function (invitationId) {
+      return $window.location.origin + '/invitation/' + invitationId;
+    };
+
+    self.getQueryParamValue = function (name) {
+        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+            results = regex.exec(location.search);
+
+        return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    };
+
+    self.getTrailUrl = function (trailId) {
+      return $window.location.origin + '/#/trail/' + trailId;
+    };
+
+    self.isTrailUrl = function (url) {
+        return true; //TODO Implement
+    };
+
+    self.shakeElement = function (el) {
+      el.addClass('animated shake');
+      setTimeout(function () {
+        el.removeClass('animated shake');
+      }, 700);
+    };
+
     return self;
-  });
+  }]);

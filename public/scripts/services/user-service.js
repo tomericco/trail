@@ -3,6 +3,8 @@
 angular.module('trailApp')
   .factory('UserService', ['$q', '$firebase', 'FIREBASE_URI', function ($q, $firebase, FIREBASE_URI) {
     var usersRef = new Firebase(FIREBASE_URI).child('users');
+    var trailsRef = new Firebase(FIREBASE_URI).child('trails');
+    var invitationsRef = new Firebase(FIREBASE_URI).child('invitations');
     var self = {};
 
     self.getUserById = function (id) {
@@ -52,7 +54,21 @@ angular.module('trailApp')
       this.getUserByEmail(email).then(function onUserFound(persistedUser) {
         return persistedUser;
       }, function onUserNotFound() {
-        return self.persistUser(user);
+        var userPersistenceDeferred = $q.defer();
+
+        self.persistUser(user).then(function (persistedUser) {
+          self.getUserInvitations(persistedUser.email).then(function (invitations) {
+            debugger;
+            _.forEach(invitations, function (invitation) {
+              trailsRef.child(invitation.trailId).child('contributors').push(persistedUser);
+              self.addTrailToUser(persistedUser.id, invitation.trailId, 'CONTRIBUTOR');
+            });
+
+            userPersistenceDeferred.resolve(persistedUser);
+          });
+        });
+
+        return userPersistenceDeferred.promise;
       }).then(function (persistedUser) {
         deferred.resolve(persistedUser);
       });
@@ -61,18 +77,36 @@ angular.module('trailApp')
     };
 
     self.addTrailToUser = function (userId, trailId, role) {
-      usersRef.child(userId + '/trails/' + trailId).set(role);
+      usersRef.child(userId).child('trails').child(trailId).set(role);
     };
 
     self.removeTrailFromUser = function (userId, trailId) {
       var deferred = $q.defer();
 
-      usersRef.child(userId + '/trails/' + trailId).remove();
+      usersRef.child(userId).child('trails').child(trailId).remove();
+
+      return deferred.promise;
+    };
+
+    self.getUserInvitations = function (email) {
+      var deferred = $q.defer();
+
+      invitationsRef.startAt(email)
+        .endAt(email)
+        .once('value', function(snap) {
+          var invitations = snap.val();
+          if (invitations) {
+            deferred.resolve(_.values(invitations));
+          } else {
+            deferred.reject(null);
+          }
+        });
 
       return deferred.promise;
     };
 
     function persistGoogleUser(user) {
+      var deferred = $q.defer();
       var id = usersRef.push();
       var userPersistedObj = {
         id: id.name(),
@@ -84,10 +118,14 @@ angular.module('trailApp')
       };
 
       id.setWithPriority(userPersistedObj, userPersistedObj.email, function (error) {
-        //TODO Handle error
+        if (!error) {
+          deferred.resolve(userPersistedObj);
+        } else {
+          deferred.reject(error);
+        }
       });
 
-      return userPersistedObj;
+      return deferred.promise;
     }
 
     return self;
