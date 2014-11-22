@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('trailApp')
-  .controller('TrailCtrl', ['$rootScope', '$scope', '$state', '$stateParams', '$firebase', 'FIREBASE_URI', 'UserService', 'TrailService', 'UtilsService', 'MailService',
-  function ($rootScope, $scope, $state, $stateParams, $firebase, FIREBASE_URI, UserService, TrailService, UtilsService, MailService) {
+  .controller('TrailCtrl', ['$rootScope', '$scope', '$state', '$stateParams', '$firebase', 'TrailStatus', 'FIREBASE_URI', 'UserService', 'TrailService', 'UtilsService', 'MailService',
+  function ($rootScope, $scope, $state, $stateParams, $firebase, TrailStatus, FIREBASE_URI, UserService, TrailService, UtilsService, MailService) {
     var ref = new Firebase(FIREBASE_URI).child('trails').child($stateParams.trailId);
     var sync = $firebase(ref);
     var record = sync.$asObject();
@@ -41,7 +41,17 @@ angular.module('trailApp')
 
     $scope.handleSearchUserDropdownClick = function (data) {
       if (data.isEmail) {
-        MailService.sendEmailInvitation(data.email);
+        MailService.sendEmailInvitation(data.email, {
+          senderAddress: $scope.loggedInUser.email,
+          senderName: $scope.loggedInUser.name,
+          trailName: $scope.trail.name,
+          trailId: $scope.trail.$id,
+          redirectUrl: UtilsService.getTrailUrl($scope.trail.$id)
+        }).then(function onSuccess() {
+          console.log('Invitation sent to: ' + data.email);
+        }, function onError(err) {
+          console.log('Invitation was not sent', err);
+        });
       } else {
         $scope.addContributor(data);
       }
@@ -56,8 +66,6 @@ angular.module('trailApp')
       $scope.trail.contributors.push(contributor);
 
       UserService.addTrailToUser(contributor.id, $scope.trail.$id, 'CONTRIBUTOR');
-
-      //TODO Send Email notification to user
     };
 
     $scope.setAddBrickType = function (type) {
@@ -100,6 +108,6 @@ angular.module('trailApp')
     };
 
     $scope.markAsInProgress = function () {
-        TrailService.setStatus($stateParams.trailId, TrailStatus.IN_PROGRESS);
+      TrailService.setStatus($stateParams.trailId, TrailStatus.IN_PROGRESS);
     };
   }]);

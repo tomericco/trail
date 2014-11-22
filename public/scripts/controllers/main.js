@@ -11,7 +11,7 @@ angular.module('trailApp')
       }, 0);
     }
 
-    $rootScope.$on('$stateChangeStart', function () {
+    $rootScope.$on('$stateChangeSuccess', function () {
       if (!AuthService.isUserLoggedIn()) {
         navigateLoginScreen();
       }
