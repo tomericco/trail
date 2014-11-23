@@ -5,7 +5,7 @@ var bodyParser = require('body-parser');
 
 var app = express();
 var os = os;
-var isProduction = os && os.environ && os.environ.TRAIL_ENV === 'production';
+var isProduction = process && process.env && process.env.TRAIL_ENV === 'production';
 var clientDir = isProduction ? 'public/dist' : 'public';
 
 app.use(bodyParser.json());
