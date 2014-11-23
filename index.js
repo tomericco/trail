@@ -33,9 +33,12 @@ var server = app.listen(port, function () {
 });
 
 rootRef.child('emails_to_send').on('child_added', function(emailSnap) {
+  console.log('Start preparing email to send...');
+
   var email = emailSnap.val();
   mail.send(email);
 
   // Remove it now that we've processed it.
   emailSnap.ref().remove();
+  console.log('Email was sent to: ' + email.recipient);
 });
