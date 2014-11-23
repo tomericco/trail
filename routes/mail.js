@@ -1,5 +1,5 @@
 var _ = require('lodash');
-var sendgrid = require('sendgrid')('tomericco', 'Tomer1986');
+var sendgrid = require('sendgrid')('tomericco', 'Startup18');
 var mailTemplates = require('../misc/mail-templates');
 
 module.exports = {
