@@ -4,7 +4,6 @@ var mail = require('./routes/mail');
 var bodyParser = require('body-parser');
 
 var app = express();
-var os = os;
 var isProduction = process && process.env && process.env.TRAIL_ENV === 'production';
 var clientDir = isProduction ? 'public/dist' : 'public';
 
@@ -29,6 +28,7 @@ var server = app.listen(port, function () {
   var port = server.address().port;
 
   console.log('Example app listening at http://%s:%s', host, port);
+  console.log('Environment: ' + (isProduction ? 'PRODUCTION' : 'LOCAL'));
 });
 
 rootRef.child('emails_to_send').on('child_added', function(emailSnap) {
