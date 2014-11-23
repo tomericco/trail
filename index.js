@@ -29,6 +29,7 @@ var server = app.listen(port, function () {
 
   console.log('Example app listening at http://%s:%s', host, port);
   console.log('Environment: ' + (isProduction ? 'PRODUCTION' : 'LOCAL'));
+  console.log('Firebase URL: ' + app.get('FIREBASE_URI'));
 });
 
 rootRef.child('emails_to_send').on('child_added', function(emailSnap) {
