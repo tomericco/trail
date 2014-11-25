@@ -1,1 +1,1 @@
-web: node --debug=$PORT index.js
+web: node --debug=7000 index.js
