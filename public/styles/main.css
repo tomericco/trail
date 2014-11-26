@@ -328,6 +328,7 @@ body {
 }
 
 .trailListItemTitle {
+    width: 95%;
     cursor: pointer;
     white-space: nowrap;
     overflow: hidden;
