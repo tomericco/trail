@@ -33,7 +33,6 @@ angular.module('trailApp')
 
     self.loginWithGoogle = function () {
       rootRef.authWithOAuthPopup("google", handleLoginResponse, {
-        remember: "sessionOnly",
         scope: "email"
       });
 
