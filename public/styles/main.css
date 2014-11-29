@@ -27,7 +27,6 @@ body {
     font-size: 20px;
     width: 100%;
     height: 50px;
-    display: table;
     z-index: 99999;
 
     -webkit-box-shadow: 0 1px 5px rgba(0,0,0,0.3);
@@ -36,14 +35,13 @@ body {
 }
 
 .title {
-    display: table-cell;
-    vertical-align: middle;
     padding-left: 20px;
+    max-width: 500px;
     color: #FAFAFA;
-    max-width: 400px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    float: left;
 }
 
 #timeline {
@@ -130,10 +128,9 @@ body {
 }
 
 #contributors {
-    display: table-cell;
-    vertical-align: middle;
     padding-right: 5px;
-    width: 600px;
+    float: right;
+    min-width: 280px;
 }
 
 #contributors .avatar {
@@ -227,7 +224,6 @@ body {
 
 .avatar {
     border-radius: 4px;
-    box-shadow: 0 1px 0 #449d44;
     max-width: 40px;
     max-height: 40px;
 }
@@ -374,12 +370,12 @@ body {
 }
 
 .searchUserContainer {
-    width: 230px;
     height: 40px;
     cursor: pointer;
+    float: right;
 }
 
-.searchUserContainer, .searchUserContainer input {
+.searchUserContainer input {
     display: table-cell;
     vertical-align: middle;
     float: right;
@@ -582,8 +578,10 @@ body {
 }
 
 .trailActionsContainer {
+    width: 60px;
     margin-left: 15px;
-    display: inline-block;
+    color: #FAFAFA;
+    float: left;
 }
 
 .trailActionsContainer .glyphicon.glyphicon-remove:hover {
