@@ -6,7 +6,7 @@
     </ul>
     <div ng-show="trail.type === 'comment' || !trail.type">
         <div class="brickAddBox">
-            <textarea placeholder="Say something about the progress..." class="commentBox" ng-model="commentContent"></textarea>
+            <textarea listen-typing placeholder="Say something about the progress..." class="commentBox" ng-model="commentContent"></textarea>
         </div>
         <button class="commentBtn btn btn-default" ng-click="addCommentBrick(commentContent)">
             <span class="glyphicon glyphicon-comment"></span>
@@ -14,7 +14,7 @@
     </div>
     <div ng-show="trail.type === 'req'">
         <div class="brickAddBox">
-            <textarea placeholder="What to do next?" class="reqBox" ng-model="reqContent"></textarea>
+            <textarea listen-typing placeholder="What to do next?" class="reqBox" ng-model="reqContent"></textarea>
             <div class="assigneeBox">
                 <span class="markedOut" ng-repeat="contributor in trail.contributors" ng-click="setAsAssignee($event, contributor)">
                     <img class="avatar meetingParticipant" ng-src="{{contributor.avatar}}" alt="" />
