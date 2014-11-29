@@ -34,6 +34,15 @@ body {
     box-shadow: 0 1px 5px rgba(0,0,0,0.3);
 }
 
+.header > div {
+    line-height: 50px;
+    height: 50px;
+}
+
+.header .glyphicon {
+    margin-top: -5px;
+}
+
 .title {
     padding-left: 20px;
     max-width: 500px;
@@ -128,6 +137,7 @@ body {
 }
 
 #contributors {
+    margin-top: 5px;
     padding-right: 5px;
     float: right;
     min-width: 280px;
@@ -152,7 +162,6 @@ body {
 
 .trailTitle {
     color: #FAFAFA;
-    vertical-align: middle;
 }
 
 .addBrickTabs {
