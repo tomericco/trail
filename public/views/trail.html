@@ -57,15 +57,24 @@
 
     </div>
     <div class="feed">
-        <div ng-repeat="brick in trail.bricks" ng-switch on="brick.type">
-            <div code-brick ng-switch-when="code"></div>
-            <div comment-brick ng-switch-when="comment"></div>
-            <div meeting-brick ng-switch-when="meeting"></div>
-            <div req-brick ng-switch-when="req"></div>
-            <div brick ng-switch-default></div>
+        <div class="trailListContainer">
+            <div ng-repeat="brick in trail.bricks" ng-switch on="brick.type">
+                <div code-brick ng-switch-when="code"></div>
+                <div comment-brick ng-switch-when="comment"></div>
+                <div meeting-brick ng-switch-when="meeting"></div>
+                <div req-brick ng-switch-when="req"></div>
+                <div brick ng-switch-default></div>
+            </div>
         </div>
 
-        <hr>
+        <div class="isTypingContainer">
+            <div ng-repeat="(userId, status) in trail.typing">
+                <span>{{userId | userDetails: trail.contributors}}</span>
+                <span ng-show="trail.typing">is typing...</span>
+            </div>
+        </div>
+
+        <hr class="feedDivider">
 
         <div add-brick></div>
     </div>
