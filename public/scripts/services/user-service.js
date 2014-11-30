@@ -83,7 +83,9 @@ angular.module('trailApp')
     self.removeTrailFromUser = function (userId, trailId) {
       var deferred = $q.defer();
 
-      usersRef.child(userId).child('trails').child(trailId).remove();
+      usersRef.child(userId).child('trails').child(trailId).remove(function onRemoveComplete(error) {
+        deferred.resolve(error);
+      });
 
       return deferred.promise;
     };

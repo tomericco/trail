@@ -120,10 +120,11 @@ angular.module('trailApp')
     };
 
     $scope.deleteTrail = function () {
-      $state.go('home');
-      TrailService.deleteTrail($stateParams.trailId).then(function () {
-        UserService.removeTrailFromUser($rootScope.loggedInUser.id, $stateParams.trailId).then(function () {
-          //TODO Show delete notification
+      //TODO Show warning dialog
+      UserService.removeTrailFromUser($rootScope.loggedInUser.id, $stateParams.trailId).then(function () {
+        $state.go('home');
+        TrailService.deleteTrail($stateParams.trailId).then(function () {
+            //TODO Show delete notification or error
         });
       });
     };
