@@ -38,7 +38,7 @@ body {
     line-height: 50px;
 }
 
-.header .glyphicon-remove, .header .glyphicon-chevron-left, .header .glyphicon-ok {
+.header .glyphicon-remove, .header .glyphicon-chevron-left, .header .glyphicon-ok, .header .glyphicon-repeat {
     margin-top: -5px;
 }
 
