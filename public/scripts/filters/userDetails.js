@@ -13,9 +13,9 @@ angular.module('trailApp').
         typingUserNames.push(user);
       });
 
-      return _(typingUserNames)
-        .pluck('name')
-        .remove(loggedInUserId)
-        .join(', ');
+      var removeIndex = _.findIndex(typingUserNames, { id: loggedInUserId });
+      typingUserNames.splice(removeIndex, 1);
+
+      return _.pluck(typingUserNames, 'name').join(', ');
     };
   }]);
