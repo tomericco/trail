@@ -69,8 +69,6 @@
 
         <div class="isTypingContainer">
             <span>{{trail.typing | userDetails: trail.contributors:$root.loggedInUser.id}}</span>
-            <span ng-show="trail.typersCount && trail.typersCount === 1"> is typing...</span>
-            <span ng-show="trail.typersCount && trail.typersCount > 1"> are typing...</span>
         </div>
 
         <hr class="feedDivider">
