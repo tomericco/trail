@@ -14,7 +14,10 @@ angular.module('trailApp').
       });
 
       var removeIndex = _.findIndex(typingUserNames, { id: loggedInUserId });
-      typingUserNames.splice(removeIndex, 1);
+
+      if (removeIndex > -1) {
+        typingUserNames.splice(removeIndex, 1);
+      }
 
       return _.pluck(typingUserNames, 'name').join(', ');
     };
