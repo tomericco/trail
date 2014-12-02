@@ -3,7 +3,10 @@
 angular.module('trailApp')
   .directive('listenTyping', ['$timeout', function ($timeout) {
     return {
-      scope: true,
+      scope: {
+          trail: '&',
+          loggedInUser: '&'
+      },
       restrict: 'A',
       link: function (scope, el) {
         var timeoutPromise;
