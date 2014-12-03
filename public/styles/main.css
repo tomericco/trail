@@ -196,6 +196,7 @@ body {
     padding: 10px;
     border: none;
     overflow: auto;
+    resize: none;
 
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
