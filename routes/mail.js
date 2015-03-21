@@ -1,5 +1,7 @@
 var _ = require('lodash');
-var sendgrid = require('sendgrid')('tomericco', 'Startup18');
+var SENDGRID_USERNAME = '<USERNAME>';
+var SENDGRID_PASSWORD = '<PASSWORD>';
+var sendgrid = require('sendgrid')(SENDGRID_USERNAME, SENDGRID_PASSWORD);
 var mailTemplates = require('../misc/mail-templates');
 
 module.exports = {
